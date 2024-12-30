@@ -1,0 +1,38 @@
+{
+  "name": "mediatheque",
+  "version": "2.1.0",
+  "description": "Freebie Dashboard for Bootstrap 5",
+  "main": "pages/dashboard.html",
+  "type": "module",
+  "directories": {
+    "example": "root"
+  },
+  "scripts": {
+    "open-app": "gulp open-app",
+    "start": "npm run open-app",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "gulp-watch"
+  },
+  "keywords": [
+    "dashboard",
+    "creative tim",
+    "html dashboard",
+    "html css dashboard",
+    "web dashboard",
+    "freebie",
+    "free bootstrap dashboard",
+    "css3 dashboard",
+    "bootstrap dashboard",
+    "frontend",
+    "responsive bootstrap dashboard"
+  ],
+  "devDependencies": {
+    "gulp": "5.0.0",
+    "gulp-open": "3.0.1",
+    "sass": "1.80.2"
+  },
+  "dependencies": {
+    "argon-dashboard": "file:",
+    "mediatheque": "file:"
+  }
+}
