@@ -97,7 +97,27 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 document.addEventListener('DOMContentLoaded', function() {
     const dashboardContainer = document.getElementById('dashboard-content');
-    fetch('dashboard.html')
+    const role = localStorage.getItem('role'); // Récupère le rôle de l'utilisateur
+
+    let dashboardFile;
+    switch (role) {
+        case 'ADMIN':
+            dashboardFile = '../../pages/lecteur/dashboard-admin.html';
+            break;
+        case 'LECTEUR':
+            dashboardFile = '../../pages/lecteur/dashboard-lecteur.html';
+            break;
+        case 'EMPLOYEE':
+            dashboardFile = '../../pages/lecteur/dashboard-employe.html';
+            break;
+        default:
+            console.error('Unknown role:', role);
+            dashboardContainer.innerHTML = '<p class="text-danger p-3">Error: Unknown role</p>';
+            return;
+    }
+
+    // Charge le tableau de bord correspondant
+    fetch(dashboardFile)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');

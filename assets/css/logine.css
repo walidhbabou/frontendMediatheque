@@ -1,0 +1,119 @@
+/* Ajouter ces styles dans un fichier CSS ou dans une balise <style> */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 2rem;
+  }
+  
+  .form-control {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: #5e72e4;
+    box-shadow: 0 0 0 2px rgba(94, 114, 228, 0.1);
+  }
+  
+  .btn {
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    opacity: 0.9;
+  }
+  .page-header {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .page-header p {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+  .footer {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+    margin-top: 3rem;
+  }
+  
+  .footer a {
+    color: #5e72e4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer a:hover {
+    color: #233dd2;
+  }
+  
+  .footer .fab {
+    font-size: 1.25rem;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .card {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+  
+    .page-header p {
+      font-size: 0.9rem;
+    }
+  
+    .card {
+      margin: 1rem;
+    }
+  
+    .footer .col-lg-8 {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+  :root {
+    --primary-color: #5e72e4;
+    --secondary-color: #f8f9fa;
+    --text-color: #333;
+  }
+  
+  body {
+    color: var(--text-color);
+  }
+  
+  .btn {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
