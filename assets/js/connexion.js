@@ -49,50 +49,50 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     event.preventDefault();
 
     const data = {
-      username: document.getElementById('username').value,
-      password: document.getElementById('password').value
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
     };
 
     fetch('http://localhost:8080/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
     })
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Erreur réseau ou serveur');
-      }
-      return response.json();
+        if (!response.ok) {
+            throw new Error('Erreur réseau ou serveur');
+        }
+        return response.json();
     })
     .then(data => {
-      if (data.accessToken) {
-    
-        localStorage.setItem('accessToken', data.accessToken);
+        if (data.accessToken) {
+            // Stockez le token et le rôle dans le localStorage
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('role', data.role); // Assurez-vous que le rôle est renvoyé par l'API
 
-        const role = data.role; 
-
-        switch (role) {
-          case 'ROLE_LECTEUR':
-            window.location.href = '../pages/lecteur/dashboard-lecteur.html';
-            break;
-          case 'ROLE_EMPLOYEE':
-            window.location.href = '../pages/employe/dashboard-employe.html';
-            break;
-          case 'ROLE_ADMIN':
-            window.location.href = '../pages/admin/dashboard-admin.html';
-            break;
-          default:
-            alert('Rôle non reconnu');
-            break;
+            // Redirigez l'utilisateur en fonction de son rôle
+            switch (data.role) {
+                case 'ROLE_LECTEUR':
+                    window.location.href = '../pages/lecteur/dashboard-lecteur.html';
+                    break;
+                case 'ROLE_EMPLOYEE':
+                    window.location.href = '../pages/employe/dashboard-employe.html';
+                    break;
+                case 'ROLE_ADMIN':
+                    window.location.href = '../pages/admin/dashboard-admin.html';
+                    break;
+                default:
+                    alert('Rôle non reconnu');
+                    break;
+            }
+        } else {
+            alert('Token non reçu');
         }
-      } else {
-        alert('Token non reçu');
-      }
     })
     .catch(error => {
-      console.error('Erreur:', error);
-      alert('Erreur lors de la connexion');
+        console.error('Erreur:', error);
+        alert('Erreur lors de la connexion');
     });
-  });
+});

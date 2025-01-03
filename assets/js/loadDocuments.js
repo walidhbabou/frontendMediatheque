@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
         .then(response => {
             console.log('Réponse reçue:', response.status);
-            // Log de la réponse complète pour le débogage
             response.clone().text().then(text => console.log('Réponse brute:', text));
             
             if (!response.ok) {
@@ -36,18 +35,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             
-            // Vider le tableau existant
             tableBody.innerHTML = '';
-            
-            // Itérer sur les documents
             documents.forEach(doc => {
                 console.log('Traitement du document:', document);
                 const row = document.createElement('tr');
                 
                 row.innerHTML = `
-                    <td>
-                        <p class="text-xs font-weight-bold mb-0">${doc.document_id || ''}</p>
-                    </td>
                     <td>
                         <p class="text-xs font-weight-bold mb-0">${doc.titre || ''}</p>
                     </td>
@@ -69,11 +62,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>
                         <p class="text-xs font-weight-bold mb-0">${doc.quantite_disponible || '0'}</p>
                     </td>
-                    <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                            Modifier
-                        </a>
-                    </td>
+                    <td class="text-center">
+  <button class="btn btn-sm btn-primary me-2" onclick="editDocument(${doc.id})">Modifier</button>
+  <button class="btn btn-sm btn-danger" onclick="deleteDocument(${doc.id})">Supprimer</button>
+</td>
                 `;
                 
                 tableBody.appendChild(row);
@@ -95,40 +87,43 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
         });
 });
-document.addEventListener('DOMContentLoaded', function() {
-    const dashboardContainer = document.getElementById('dashboard-content');
-    const role = localStorage.getItem('role'); // Récupère le rôle de l'utilisateur
-
-    let dashboardFile;
-    switch (role) {
-        case 'ADMIN':
-            dashboardFile = '../../pages/lecteur/dashboard-admin.html';
-            break;
-        case 'LECTEUR':
-            dashboardFile = '../../pages/lecteur/dashboard-lecteur.html';
-            break;
-        case 'EMPLOYEE':
-            dashboardFile = '../../pages/lecteur/dashboard-employe.html';
-            break;
-        default:
-            console.error('Unknown role:', role);
-            dashboardContainer.innerHTML = '<p class="text-danger p-3">Error: Unknown role</p>';
-            return;
-    }
-
-    // Charge le tableau de bord correspondant
-    fetch(dashboardFile)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
-        .then(html => {
-            dashboardContainer.innerHTML = html;
-        })
-        .catch(error => {
-            console.error('Error loading dashboard:', error);
-            dashboardContainer.innerHTML = '<p class="text-danger p-3">Error loading dashboard content</p>';
-        });
-});
+document.addEventListener('DOMContentLoaded', function () {
+    const editButtons = document.querySelectorAll('.edit-btn');
+    const editFormContainer = document.getElementById('edit-form-container');
+    const editForm = document.getElementById('edit-form');
+    const cancelEditButton = document.getElementById('cancel-edit');
+  
+    editButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const row = this.closest('tr');
+        const cells = row.querySelectorAll('td');
+  
+        // Remplir le formulaire avec les données de la ligne
+        document.getElementById('edit-title').value = cells[0].textContent;
+        document.getElementById('edit-type').value = cells[1].textContent;
+        document.getElementById('edit-price').value = cells[2].textContent;
+        document.getElementById('edit-consultable').value = cells[3].textContent;
+        document.getElementById('edit-empruntable').value = cells[4].textContent;
+        document.getElementById('edit-quantity').value = cells[5].textContent;
+        document.getElementById('edit-available-quantity').value = cells[6].textContent;
+  
+        // Afficher le formulaire
+        editFormContainer.style.display = 'block';
+      });
+    });
+  
+    // Gérer l'annulation de la modification
+    cancelEditButton.addEventListener('click', function () {
+      editFormContainer.style.display = 'none';
+    });
+  
+    // Gérer la soumission du formulaire
+    editForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+  
+      // Ici, vous pouvez ajouter le code pour mettre à jour les données dans la base de données
+  
+      // Masquer le formulaire après la soumission
+      editFormContainer.style.display = 'none';
+    });
+  });

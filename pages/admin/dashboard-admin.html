@@ -16,6 +16,14 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- CSS Files -->
   <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <script>
+    window.addEventListener('load', function() {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        window.location.href = '/pages/sign-in.html'; // Redirection vers la page de connexion
+      }
+    });
+  </script>
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -32,7 +40,7 @@
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main" style="overflow: hidden;">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" href="../lecteur/dashboard-lecteur.html">
+                <a class="nav-link active" href="../admin/dashboard-admin.html">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
                     </div>
@@ -40,7 +48,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../lecteur/tables.html">
+                <a class="nav-link" href="../admin/Document.html">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-calendar-grid-58 text-dark text-sm opacity-10"></i>
                     </div>
@@ -119,6 +127,17 @@
               <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
               <input type="text" class="form-control" placeholder="Type here...">
             </div>
+            <a href="javascript:;" id="logout-link" class="nav-link text-white font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none"> Déconnexion</span>
+              </a>
+
+<script>
+  document.getElementById('logoutButton').addEventListener('click', function() {
+    localStorage.removeItem('accessToken'); // Supprime le token
+    window.location.href = '/pages/sign-in.html'; // Redirection vers la page de connexion
+  });
+</script>
           </div>
           <ul class="navbar-nav  justify-content-end">
              <!--<li class="nav-item d-flex align-items-center">
@@ -290,7 +309,7 @@
                     <p>That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p>
                   </div>
                 </div>
-                <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-3.jpg');
+                <div class="carousel-item h-100" style="background-image: url('/assets/img/carousel-3.jpg');
       background-size: cover;">
                   <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
