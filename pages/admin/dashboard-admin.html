@@ -133,7 +133,7 @@
               </a>
 
 <script>
-  document.getElementById('logoutButton').addEventListener('click', function() {
+  document.getElementById('logout-link').addEventListener('click', function() {
     localStorage.removeItem('accessToken'); // Supprime le token
     window.location.href = '/pages/sign-in.html'; // Redirection vers la page de connexion
   });
@@ -289,7 +289,7 @@
           <div class="card card-carousel overflow-hidden h-100 p-0">
             <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
               <div class="carousel-inner border-radius-lg h-100">
-                <div class="carousel-item h-100 active" style="background-image: url('../assets/img/carousel-1.jpg');
+                <div class="carousel-item h-100 active" style="background-image: url('/assets/img/carousel-1.jpg');
       background-size: cover;">
                   <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
@@ -299,7 +299,7 @@
                     <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
                   </div>
                 </div>
-                <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-2.jpg');
+                <div class="carousel-item h-100" style="background-image: url('/assets/img/carousel-2.jpg');
       background-size: cover;">
                   <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
@@ -369,12 +369,12 @@
   </main>
  
   <!--   Core JS Files   -->
-     <script src="/assets/js/core/popper.min.js"></script>
-  <script src="/assets/js/core/popper.min.js"></script>
-  <script src="/assets/js/core/bootstrap.min.js"></script>
-  <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="/assets/js/plugins/chartjs.min.js"></script>
+     
+  <script src="../../assets/js/core/popper.min.js"></script>
+  <script src="../../assets/js/core/bootstrap.min.js"></script>
+  <script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="../../assets/js/plugins/chartjs.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var ctx1 = document.getElementById("chart-line").getContext("2d");
@@ -460,8 +460,10 @@
 
      
     });
+    
   </script>
-  <script src="/assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+  <script src="../../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+  <script src="../../assets/js/loadDocuments.js"></script>
 </body>
 
 </html>
