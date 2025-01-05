@@ -14,6 +14,8 @@
   <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
   <!-- CSS Files -->
   <link id="pagestyle" href="../../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
   <style>
@@ -59,10 +61,15 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
+        <div></div>
       <div class="row">
         <div class="col-12">
           <div class="card mb-4">
-            <button id="create-document-button" class="btn btn-primary mb-4">Créer un document</button>
+            <div class="container-fluid d-flex justify-content-between align-items-center mt-3">
+                <button id="create-document-button" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
             <div class="card-header pb-0">
               <h6>Document table</h6>
             </div>

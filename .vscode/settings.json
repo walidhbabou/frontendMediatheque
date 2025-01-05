@@ -3,6 +3,7 @@
         "Consultable",
         "Empruntable",
         "lecteur",
-        "mediatheque"
+        "mediatheque",
+        "Réponse"
     ]
 }

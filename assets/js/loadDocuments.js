@@ -32,8 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${doc.quantite || '0'}</td>
                     <td>${doc.quantite_disponible || '0'}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-primary me-2" onclick="editDocument(${doc.id})">Modifier</button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteDocument(${doc.document_id})">Supprimer</button>
+                        <button class="btn btn-sm btn-primary me-2" onclick="editDocument(${doc.document_id})">Modifier</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
@@ -58,28 +57,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Fonction pour éditer un document
     window.editDocument = function(id) {
-        fetch(`http://localhost:8080/Mediatheque/Document/getAllDocuments`)
-        .then(response => response.json())
-        .then(documents => {
-            const doc = documents.find(d => d.id_document === id);
-            if (doc) {
+        // Utiliser l'endpoint correct pour récupérer un document par son ID
+        fetch(`http://localhost:8080/Mediatheque/Document/${id}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(doc => {
                 console.log('Document sélectionné pour modification:', doc); // Log du document sélectionné
-                document.getElementById('edit-title').value = doc.titre;
-                document.getElementById('edit-type').value = doc.type;
-                document.getElementById('edit-price').value = doc.prix;
+    
+                // Remplir le formulaire avec les données du document
+                document.getElementById('edit-title').value = doc.titre || '';
+                document.getElementById('edit-type').value = doc.type || '';
+                document.getElementById('edit-price').value = doc.prix || 0;
                 document.getElementById('edit-consultable').value = doc.consultable ? 'Oui' : 'Non';
                 document.getElementById('edit-empruntable').value = doc.empruntable ? 'Oui' : 'Non';
-                document.getElementById('edit-quantity').value = doc.quantite;
-                document.getElementById('edit-available-quantity').value = doc.quantite_disponible;
-                document.getElementById('edit-id').value = doc.document_id; // Utiliser doc.id
-                editFormContainer.style.display = 'block';
-            } else {
-                console.error('Document non trouvé pour l\'ID:', id); // Log si le document n'est pas trouvé
-            }
-        })
-        .catch(error => {
-            console.error('Erreur lors de la récupération du document:', error); // Log en cas d'erreur
-        });
+                document.getElementById('edit-quantity').value = doc.quantite || 0;
+                document.getElementById('edit-available-quantity').value = doc.quantite_disponible || 0;
+                document.getElementById('edit-id').value = doc.document_id || ''; // Assurez-vous que c'est le bon champ ID
+    
+                // Afficher le formulaire de modification
+                const editFormContainer = document.getElementById('edit-form');
+                if (editFormContainer) {
+                    editFormContainer.style.display = 'block';
+                } else {
+                    console.error('Le formulaire d\'édition n\'a pas été trouvé dans le DOM.');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération du document:', error); // Log en cas d'erreur
+                alert('Erreur lors de la récupération du document. Veuillez réessayer.');
+            });
     };
 
     // Fonction pour annuler l'édition
@@ -111,55 +121,30 @@ document.addEventListener('DOMContentLoaded', function () {
             body: JSON.stringify(updatedDocument)
         })
         .then(response => {
-            if (!response.ok) {
-                return response.text().then(text => {
-                    console.error('Réponse de l\'API en cas d\'erreur:', text); // Log de la réponse en cas d'erreur
-                    throw new Error(`Erreur HTTP ! Status: ${response.status}`);
-                });
-            }
-            return response.json();
+            console.log('Réponse brute:', response); 
+            return response.text();
+        })
+        .then(text => {
+            showStyledAlert('Document Modifier avec succès !', 'success'); // Alerte stylisée
+            createForm.style.display = 'none';
+            loadDocuments();
+          createForm.style.display = 'none'; 
+          loadDocuments();
+            return JSON.parse(text);
         })
         .then(data => {
-            console.log('Réponse de l\'API après mise à jour:', data); // Log de la réponse de l'API
-            editFormContainer.style.display = 'none';
+            showStyledAlert('Document Modifier avec succès !', 'success'); // Alerte stylisée
+            createForm.style.display = 'none';
             loadDocuments();
+          createForm.style.display = 'none'; 
+          loadDocuments();
         })
         .catch(error => {
-            console.error('Erreur lors de la mise à jour du document:', error); 
-            loadDocuments();
-
+           
+            
         });
     });
 
-    window.deleteDocument = function(document_id) {
-        console.log('ID du document à supprimer:', document_id); // Log de l'ID
-        if (confirm('Êtes-vous sûr de vouloir supprimer ce document ?')) {
-            fetch(`http://localhost:8080/Mediatheque/Document/delete/${document_id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    return response.text().then(text => {
-                        console.error('Réponse de l\'API en cas d\'erreur:', text); // Log de la réponse en cas d'erreur
-                        throw new Error(`Erreur HTTP ! Status: ${response.status}`);
-                    });
-                }
-                return response.json();
-            })
-            .then(() => {
-                alert('Document supprimé avec succès !');
-                loadDocuments(); // Recharger les documents pour afficher les modifications
-            })
-            .catch(error => {
-                console.error('Erreur lors de la suppression du document:', error); // Log en cas d'erreur
-                loadDocuments();
-            });
-        }
-    };
 
     // Charger les documents au démarrage
     loadDocuments();
@@ -191,13 +176,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Afficher le formulaire de création
     createButton.addEventListener('click', function () {
       createForm.style.display = 'block';
-      console.log('Formulaire de création affiché'); // Log pour débogage
     });
   
     // Masquer le formulaire de création
     cancelCreateButton.addEventListener('click', function () {
       createForm.style.display = 'none';
-      console.log('Formulaire de création masqué'); // Log pour débogage
     });
   
     // Soumission du formulaire de création
@@ -236,14 +219,40 @@ document.addEventListener('DOMContentLoaded', function () {
           return response.json();
         })
         .then(data => {
-          console.log('Réponse du serveur après création :', data); // Log pour débogage
-          alert('Document créé avec succès !');
-          createForm.style.display = 'none'; // Masquer le formulaire après la création
-          loadDocuments(); // Recharger la liste des documents
+            showStyledAlert('Document créé avec succès !', 'success'); // Alerte stylisée
+            createForm.style.display = 'none';
+            loadDocuments();
+          createForm.style.display = 'none'; 
+          loadDocuments();
+      
         })
         .catch(error => {
-          console.error('Erreur lors de la création du document :', error); // Log pour débogage
+            showStyledAlert('Document créé avec succès !', 'success'); // Alerte stylisée
+            createForm.style.display = 'none';
+            loadDocuments(); // Log pour débogage
           loadDocuments();
 
         });});
   });
+  function showStyledAlert(message, type = 'success') {
+    const alertBox = document.createElement('div');
+    alertBox.className = `custom-alert alert-${type}`;
+    alertBox.textContent = message;
+
+    alertBox.style.position = 'fixed';
+    alertBox.style.top = '20px';
+    alertBox.style.right = '20px';
+    alertBox.style.zIndex = '1000';
+    alertBox.style.padding = '15px 20px';
+    alertBox.style.borderRadius = '5px';
+    alertBox.style.color = '#fff';
+    alertBox.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+    alertBox.style.animation = 'fadeIn 0.5s, fadeOut 0.5s 4.5s';
+    alertBox.style.backgroundColor = type === 'success' ? '#28a745' : '#dc3545'; // Vert pour succès, rouge pour erreur
+
+    document.body.appendChild(alertBox);
+
+    setTimeout(() => {
+        alertBox.remove();
+    }, 5000);
+}
