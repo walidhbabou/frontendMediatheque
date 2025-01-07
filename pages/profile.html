@@ -22,8 +22,11 @@
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
-  <div class="position-absolute w-100 min-height-300 top-0" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg'); background-position-y: 50%;">
-    <span class="mask bg-primary opacity-6"></span>
+  <!--image du background-->
+  <div class="position-absolute w-100 min-height-300 top-0">
+    <img src="../assets/img/03-Mediatheque.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+
+    <!-- <span class="mask bg-primary opacity-6"></span> -->
   </div>
  
   <div class="main-content position-relative max-height-vh-100 h-100">
@@ -35,6 +38,7 @@
         <div class="row gx-4">
           <div class="col-auto">
             <div class="avatar avatar-xl position-relative">
+              <!-- image du lecteur-->
               <img src="../assets/img/team-1.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
             </div>
           </div>
@@ -156,7 +160,7 @@
         </div>
         
       </div>
-      <footer class="footer pt-3  ">
+      <!-- <footer class="footer pt-3  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">
@@ -187,7 +191,7 @@
             </div>
           </div>
         </div>
-      </footer>
+      </footer> -->
     </div>
   </div>
  
@@ -204,6 +208,31 @@
       }
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const dashboardContainer = document.getElementById('dashboard-content');
+      
+        if (dashboardContainer) {
+            fetch('./dashboard-lecteur.html') 
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erreur HTTP : ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    // Charger le contenu du tableau de bord
+                    dashboardContainer.innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Erreur lors du chargement du tableau de bord :', error);
+                    dashboardContainer.innerHTML = '<p>Impossible de charger le tableau de bord.</p>';
+                });
+        } else {
+            console.error("Conteneur 'dashboard-content' introuvable.");
+        }
+    });
+    
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
