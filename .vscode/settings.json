@@ -5,5 +5,9 @@
         "lecteur",
         "mediatheque",
         "Réponse"
-    ]
+    ],
+    "python.terminal.launchArgs": [
+        
+    ],
+    "liveServer.settings.port": 5501
 }

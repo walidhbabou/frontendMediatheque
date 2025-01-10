@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${doc.type || ''}</td>
                     <td>${doc.prix ? doc.prix + ' €' : ''}</td>
                     <td><span class="badge badge-sm bg-gradient-${doc.consultable ? 'success' : 'secondary'}">${doc.consultable ? 'Oui' : 'Non'}</span></td>
-                    <td><span class="badge badge-sm bg-gradient-${doc.empruntable ? 'success' : 'secondary'}">${doc.empruntable ? 'Oui' : 'Non'}</span></td>
                     <td>${doc.quantite || '0'}</td>
                     <td>${doc.quantite_disponible || '0'}</td>
                     <td class="text-center">
@@ -73,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('edit-type').value = doc.type || '';
                 document.getElementById('edit-price').value = doc.prix || 0;
                 document.getElementById('edit-consultable').value = doc.consultable ? 'Oui' : 'Non';
-                document.getElementById('edit-empruntable').value = doc.empruntable ? 'Oui' : 'Non';
                 document.getElementById('edit-quantity').value = doc.quantite || 0;
                 document.getElementById('edit-available-quantity').value = doc.quantite_disponible || 0;
                 document.getElementById('edit-id').value = doc.document_id || ''; // Assurez-vous que c'est le bon champ ID
@@ -105,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {
             type: document.getElementById('edit-type').value,
             prix: parseFloat(document.getElementById('edit-price').value),
             consultable: document.getElementById('edit-consultable').value === 'Oui',
-            empruntable: document.getElementById('edit-empruntable').value === 'Oui',
             quantite: parseInt(document.getElementById('edit-quantity').value),
             quantite_disponible: parseInt(document.getElementById('edit-available-quantity').value)
         };
