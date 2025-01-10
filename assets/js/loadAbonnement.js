@@ -37,26 +37,26 @@ document.addEventListener('DOMContentLoaded', function () {
           return response.json();
         })
         .then(data => {
-          console.log('Données reçues des abonnements:', data); // Pour déboguer
+          console.log('Données reçues des abonnements:', data);
           abonnementTable.innerHTML = '';
+          
+          if (!data || data.length === 0) {
+            abonnementTable.innerHTML = '<tr><td colspan="6">Aucun abonnement trouvé</td></tr>';
+            return;
+          }
+
           data.forEach(abonnement => {
-            console.log('Données du lecteur:', { 
-                name: abonnement.Username, 
-                lastName: abonnement.lastName
-            }); // Pour déboguer
-            
             const row = document.createElement('tr');
-            const lecteurNom = abonnement.lecteurName || 'Non défini';
-            const lecteurPrenom = abonnement.lecteurlastName || 'Non défini';
-            
             row.innerHTML = `
-              <td>${abonnement.abonnementId}</td>
-              <td>${formatDate(abonnement.date_expiration)}</td>
-              <td>${formatDate(abonnement.date_inscription)}</td>
-              <td>${abonnement.solde}</td>
-              <td>${lecteurNom} ${lecteurPrenom}</td>
+              <td>${abonnement.lecteurName || ''} ${abonnement.lecteurlastName || ''}</td>
+              <td>${formatDateForDisplay(abonnement.dateinscription)}</td>
+              <td>${formatDateForDisplay(abonnement.dateexpiration)}</td>
+              <td>${abonnement.solde || 0} €</td>
               <td>
-                <button class="btn btn-sm btn-warning edit-btn" data-id="${abonnement.abonnementId}">Modifier</button>
+                <button class="btn btn-sm btn-warning edit-btn" data-id="${abonnement.abonnementId}">
+                  <i class="fas fa-edit"></i> Modifier
+                </button>
+                
               </td>
             `;
             abonnementTable.appendChild(row);
@@ -64,7 +64,13 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
           console.error('Erreur lors du chargement:', error);
-          abonnementTable.innerHTML = '<tr><td colspan="6">Erreur lors du chargement des abonnements</td></tr>';
+          abonnementTable.innerHTML = `
+            <tr>
+              <td colspan="6" class="text-danger">
+                Erreur lors du chargement des abonnements: ${error.message}
+              </td>
+            </tr>
+          `;
         });
     }
   
@@ -135,46 +141,66 @@ document.addEventListener('DOMContentLoaded', function () {
   
     // Modifier un abonnement
     abonnementTable.addEventListener('click', function (e) {
-      if (e.target.classList.contains('edit-btn')) {
-        const id = e.target.getAttribute('data-id');
+      const editButton = e.target.closest('.edit-btn');
+      if (editButton) {
+        const id = editButton.getAttribute('data-id');
+        console.log('ID de l\'abonnement à modifier:', id);
+
+        // Récupérer les données de l'abonnement
         fetch(`${apiUrl}/${id}`)
-          .then(response => response.json())
+          .then(response => {
+            if (!response.ok) throw new Error('Erreur lors de la récupération des données');
+            return response.json();
+          })
           .then(abonnement => {
+            console.log('Données de l\'abonnement:', abonnement);
+            
+            // Remplir le formulaire
             document.getElementById('edit-id').value = abonnement.abonnementId;
-            document.getElementById('edit-date-expiration').value = formatDate(abonnement.date_expiration);
-            document.getElementById('edit-date-inscription').value = formatDate(abonnement.date_inscription);
+            document.getElementById('edit-date-expiration').value = formatDateForInput(abonnement.dateexpiration);
+            document.getElementById('edit-date-inscription').value = formatDateForInput(abonnement.dateinscription);
             document.getElementById('edit-solde').value = abonnement.solde;
             document.getElementById('edit-lecteur').value = abonnement.lecteurId;
 
-            // Mettre à jour le select avec la bonne valeur
-            const editLecteurSelect = document.getElementById('edit-lecteur');
-            if (editLecteurSelect) {
-              editLecteurSelect.value = abonnement.lecteurId;
+            // Afficher le formulaire de modification
+            if (editForm) {
+              editForm.style.display = 'block';
+              if (createForm) createForm.style.display = 'none';
+              
+              // Faire défiler jusqu'au formulaire
+              editForm.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              console.error('Le formulaire de modification n\'a pas été trouvé');
             }
-
-            editForm.style.display = 'block';
           })
-          .catch(error => console.error('Erreur :', error));
+          .catch(error => {
+            console.error('Erreur:', error);
+            alert('Erreur lors de la récupération des données de l\'abonnement');
+          });
       }
     });
   
-    // Gérer l'annulation de la modification
-    cancelEditButton.addEventListener('click', function() {
-      editForm.style.display = 'none';
-    });
+    // Gestionnaire pour le bouton Annuler
+    if (cancelEditButton) {
+      cancelEditButton.addEventListener('click', function() {
+        editForm.style.display = 'none';
+        if (createForm) createForm.style.display = 'block';
+      });
+    }
   
-    // Gérer la soumission du formulaire de modification
-    editAbonnementForm.addEventListener('submit', function(e) {
+    // Gestionnaire pour le formulaire de modification
+    document.getElementById('edit-abonnement-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      const id = document.getElementById('edit-id').value;
       const formData = {
-        date_expiration: document.getElementById('edit-date-expiration').value,
-        date_inscription: document.getElementById('edit-date-inscription').value,
-        solde: parseInt(document.getElementById('edit-solde').value),
-        lecteurId: parseInt(document.getElementById('edit-lecteur').value)
+        abonnementId: document.getElementById('edit-id').value,
+        dateexpiration: document.getElementById('edit-date-expiration').value,
+        dateinscription: document.getElementById('edit-date-inscription').value,
+        solde: document.getElementById('edit-solde').value,
+        lecteurId: document.getElementById('edit-lecteur').value
       };
-  
+
+      const id = formData.abonnementId;
+      
       fetch(`${apiUrl}/update/${id}`, {
         method: 'PUT',
         headers: {
@@ -182,20 +208,20 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         body: JSON.stringify(formData)
       })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Erreur lors de la modification');
-          }
-          return response.json();
-        })
-        .then(() => {
-          editForm.style.display = 'none';
-          loadAbonnements();
-        })
-        .catch(error => {
-          console.error('Erreur :', error);
-          alert('Erreur lors de la modification de l\'abonnement');
-        });
+      .then(response => {
+        if (!response.ok) throw new Error('Erreur lors de la mise à jour');
+        return response.json();
+      })
+      .then(data => {
+        console.log('Mise à jour réussie:', data);
+        editForm.style.display = 'none';
+        loadAbonnements(); // Recharger la liste
+        alert('Abonnement mis à jour avec succès');
+      })
+      .catch(error => {
+        console.error('Erreur:', error);
+        alert('Erreur lors de la mise à jour de l\'abonnement');
+      });
     });
   
     // Supprimer un abonnement
@@ -216,5 +242,36 @@ document.addEventListener('DOMContentLoaded', function () {
     function formatDate(dateString) {
       const date = new Date(dateString);
       return date.toISOString().split('T')[0];
+    }
+  
+    // Fonction utilitaire pour formater les dates pour l'affichage
+    function formatDateForDisplay(dateString) {
+      if (!dateString) return 'Non défini';
+      try {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return 'Date invalide';
+        
+        return new Intl.DateTimeFormat('fr-FR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        }).format(date);
+      } catch (error) {
+        console.error('Erreur de formatage de date:', error);
+        return 'Date invalide';
+      }
+    }
+      function formatDateForInput(dateString) {
+      if (!dateString) return '';
+      try {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return '';
+        
+        // Format YYYY-MM-DD pour les inputs date
+        return date.toISOString().split('T')[0];
+      } catch (error) {
+        console.error('Erreur de formatage de date pour input:', error);
+        return '';
+      }
     }
   });

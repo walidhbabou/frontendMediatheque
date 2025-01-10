@@ -27,12 +27,14 @@
     "responsive bootstrap dashboard"
   ],
   "devDependencies": {
-    "gulp": "5.0.0",
+    "gulp": "^5.0.0",
     "gulp-open": "3.0.1",
     "sass": "1.80.2"
   },
   "dependencies": {
     "argon-dashboard": "file:",
     "mediatheque": "file:"
-  }
+  },
+  "author": "",
+  "license": "ISC"
 }

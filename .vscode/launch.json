@@ -4,15 +4,18 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
-
-
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8088",
-            "webRoot": "${workspaceFolder}"
+            "name": "Launch Chrome avec commande",
+            "url": "http://localhost:5500",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "start-server",
+            "serverReadyAction": {
+                "pattern": "listening on port ([0-9]+)",
+                "uriFormat": "http://localhost:%s",
+                "action": "openExternally"
+            }
         }
     ]
 }
