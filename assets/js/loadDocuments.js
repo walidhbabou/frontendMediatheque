@@ -91,9 +91,11 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Fonction pour annuler l'édition
-    cancelEditButton.addEventListener('click', function () {
-        editFormContainer.style.display = 'none';
+    const createButton = document.getElementById('create-document-button');
+    createButton.addEventListener('click', function () {
+      createForm.style.display = 'block';
     });
+    
 
     editForm.addEventListener('submit', function (event) {
         event.preventDefault();
