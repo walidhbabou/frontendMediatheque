@@ -6,6 +6,10 @@ const ABONNEMENT_API = 'http://localhost:8080/Mediatheque/abo';
 const DOCUMENT_API   = 'http://localhost:8080/Mediatheque/Document/getAllDocuments';
 const LECTEUR_API    = 'http://localhost:8080/Mediatheque/lecteur/allLecteurs';
 
+
+let emprunts = [];
+let currentPage = 1;
+const itemsPerPage = 5; 
 // -----------------------
 // Au chargement du DOM
 // -----------------------
@@ -18,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const editEmpruntForm      = document.getElementById('edit-emprunt-form-data');
     const cancelCreateButton   = document.getElementById('cancel-create-emprunt');
     const cancelEditButton     = document.getElementById('cancel-edit-emprunt');
+    const searchEmpruntInput = document.getElementById('search-input');
+    const empruntPagination = document.getElementById('empruntPagination');
 
     // Charger les emprunts, abonnements et documents au démarrage
     loadEmprunts();
@@ -229,6 +235,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             </button>
                         </td>
                     `;
+                    emprunts = data;
+                    currentPage = 1; // Réinitialiser à la première page
+                    applyPagination(); 
                     empruntTable.appendChild(row);
                 });
             })
@@ -242,7 +251,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // -----------------------
     // Charger tous les abonnements
     // -----------------------
     function loadAbonnements() {
@@ -265,9 +273,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Erreur chargement abonnements:', error));
     }
 
-    // -----------------------
     // Charger tous les documents
-    // -----------------------
     function loadDocuments() {
         fetch(DOCUMENT_API)
             .then(response => response.json())
@@ -296,7 +302,26 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Erreur chargement documents:', error));
     }
-
+    function renderPagination(totalItems) {
+        const paginationElement = document.getElementById('abonnementPagination');
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+      
+        paginationElement.innerHTML = ''; // Effacer la pagination précédente
+      
+        if (totalPages <= 1) return; // Pas de pagination si une seule page
+      
+        for (let i = 1; i <= totalPages; i++) {
+          const li = document.createElement('li');
+          li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+          li.innerHTML = `<button class="page-link">${i}</button>`;
+          li.addEventListener('click', () => {
+            currentPage = i;
+            applyPagination();
+          });
+          paginationElement.appendChild(li);
+        }
+      }
+      
     // -----------------------
     // Clic sur "Modifier" emprunt
     // -----------------------
@@ -317,7 +342,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch(error => console.error('Erreur:', error));
         }
     });
-
+    function applyPagination() {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const paginatedEmprunts = emprunts.slice(startIndex, startIndex + itemsPerPage);
+      
+        renderTable(paginatedEmprunts);
+        renderPagination(emprunts.length);
+      }
+      
     // -----------------------
     // Formatage pour affichage (table)
     // -----------------------
@@ -370,13 +402,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return abonnements.find(abo => abo.abonnementId == abonnementId);
     }
 
-    // -----------------------
-    // Mettre à jour la quantité d’un document
-    // -----------------------
+
     async function updateDocument(docId, nouvelleQuantite) {
-        // On suppose un endpoint type : PUT /Mediatheque/Document/update/{docId}
-        // avec un body JSON contenant la nouvelle quantité.
-        // À adapter selon votre backend.
         const updateUrl = `http://localhost:8080/Mediatheque/Document/update/${docId}`;
 
         const bodyData = {
@@ -396,19 +423,50 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return response.json();
     }
-
+    function renderTable(emprunts) {
+        const empruntTable = document.getElementById('emprunt-table');
+        empruntTable.innerHTML = '';
+      
+        if (emprunts.length === 0) {
+          empruntTable.innerHTML = `<tr><td colspan="4">Aucun emprunt trouvé.</td></tr>`;
+          return;
+        }
+      
+        emprunts.forEach(emprunt => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${formatDate(emprunt.date_emprunt)}</td>
+            <td>${formatDate(emprunt.date_retour)}</td>
+            <td>${emprunt.document?.titre || ''}</td>
+            <td>
+              <button class="btn btn-sm btn-warning edit-emprunt" data-id="${emprunt.emprunt_id}">
+                <i class="fas fa-edit"></i> Modifier
+              </button>
+            </td>
+          `;
+          empruntTable.appendChild(row);
+        });
+      }
+      
     // -----------------------
     // Mettre à jour le solde d’un abonnement
     // -----------------------
     async function updateAbonnement(aboId, nouveauSolde) {
-        // Même principe, on suppose : PUT /Mediatheque/abo/update/{aboId}
         const updateUrl = `http://localhost:8080/Mediatheque/abo/update/${aboId}`;
 
         const bodyData = {
             abonnementId: aboId,
-            solde: nouveauSolde
-            // Ajoutez d'autres champs si nécessaires
+            solde: nouveauSolde,
+            dateinscription: new Date().toISOString(), 
+            dateexpiration: calculateExpirationDate(), 
         };
+
+        // Fonction pour calculer la date d'expiration (1 an après la date d'inscription)
+        function calculateExpirationDate() {
+            const expirationDate = new Date();
+            expirationDate.setFullYear(expirationDate.getFullYear() + 1); // Ajoute 1 an
+            return expirationDate.toISOString();
+        }
 
         const response = await fetch(updateUrl, {
             method: 'PUT',
@@ -421,4 +479,61 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return response.json();
     }
+
+    function applyFiltersAndPagination() {
+        // Obtenez la requête de recherche
+        const searchQuery = document.getElementById('search-input').value.toLowerCase();
+
+        // Filtrer les emprunts par document
+        filteredEmprunts = emprunts.filter(emprunt => {
+            // Vérifier si le document de l'emprunt correspond à la requête de recherche
+            return emprunt.document.toLowerCase().includes(searchQuery);
+        });
+
+        // Appliquer la pagination
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const paginatedEmprunts = filteredEmprunts.slice(startIndex, startIndex + itemsPerPage);
+
+        // Afficher les résultats
+        renderEmpruntTable(paginatedEmprunts);
+        updatePaginationButtons(filteredEmprunts.length);
+    }
+
+    function renderEmpruntTable(emprunts) {
+        const empruntTableBody = document.getElementById('empruntTable').querySelector('tbody');
+        empruntTableBody.innerHTML = emprunts.map(emprunt => `
+            <tr>
+                <td>${emprunt.id}</td>
+                <td>${emprunt.document}</td>
+                <td>${emprunt.dateEmprunt}</td>
+                <td>${emprunt.dateRetour}</td>
+                <td>${emprunt.statut}</td>
+            </tr>
+        `).join('');
+    }
+
+    function updatePaginationButtons(totalItems) {
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        const empruntPagination = document.getElementById('empruntPagination');
+        empruntPagination.innerHTML = '';
+
+        if (totalPages <= 1) return; // Pas de pagination si une seule page
+
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement('li');
+            li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+            li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            li.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentPage = i;
+                applyFiltersAndPagination();
+            });
+            empruntPagination.appendChild(li);
+        }
+    }
+
+    searchEmpruntInput.addEventListener('input', () => {
+        currentPage = 1; 
+        applyFiltersAndPagination();
+    });
 });
