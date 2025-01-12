@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>SmartMedia - Profile</title>
+  <!-- Fonts and icons -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+  <div class="position-absolute w-100 min-height-300 top-0">
+    <img src="/assets/img/03-Mediatheque.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+  </div>
+
+  <div class="main-content position-relative max-height-vh-100 h-100">
+    <div class="card shadow-lg mx-4 card-profile-bottom">
+      <div class="card-body p-3">
+        <div class="row gx-4">
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img src="/assets/img/team-1.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+          </div>
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1" id="username">Username</h5>
+              <p class="mb-0 font-weight-bold text-sm" id="role">Role</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header pb-0">
+              <div class="d-flex align-items-center">
+                <p class="mb-0">User Profile</p>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="text-uppercase text-sm">User Information</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label">Username</label>
+                    <p id="username-detail">Loading...</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label">Email</label>
+                    <p id="email">Loading...</p>
+                  </div>
+                </div>
+              </div>
+              <hr class="horizontal dark">
+              <p class="text-uppercase text-sm">Associated Entities</p>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label">Lecteur</label>
+                    <p id="lecteur-info">None</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label">Employe</label>
+                    <p id="employe-info">None</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label">Admin</label>
+                    <p id="admin-info">None</p>
+                  </div>
+                </div>
+              </div>
+              <hr class="horizontal dark">
+              <p class="text-uppercase text-sm">About Me</p>
+              <div class="form-group">
+                <label class="form-control-label">Description</label>
+                <p id="about-me">Loading...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Core -->
+  <script src="/assets/js/core/popper.min.js"></script>
+  <script src="/assets/js/core/bootstrap.min.js"></script>
+  <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('/api/user/profile') // Endpoint pour récupérer les données du profil
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Remplir les données de l'utilisateur
+          document.getElementById('username').textContent = data.username;
+          document.getElementById('username-detail').textContent = data.username;
+          document.getElementById('email').textContent = data.email;
+          document.getElementById('role').textContent = data.role;
+
+          // Associer les relations
+          document.getElementById('lecteur-info').textContent = data.lecteur ? `Lecteur ID: ${data.lecteur.id}` : 'None';
+          document.getElementById('employe-info').textContent = data.employe ? `Employe ID: ${data.employe.id}` : 'None';
+          document.getElementById('admin-info').textContent = data.admin ? `Admin ID: ${data.admin.id}` : 'None';
+
+          // À propos de l'utilisateur
+          document.getElementById('about-me').textContent = data.aboutMe || 'No description available.';
+        })
+        .catch(error => {
+          console.error('Error fetching user data:', error);
+          alert('Unable to load profile data.');
+        });
+    });
+  </script>
+</body>
+
+</html>
