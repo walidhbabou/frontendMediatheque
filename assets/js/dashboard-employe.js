@@ -186,9 +186,9 @@ async function scheduleVolunteer(volunteerId, schedule) {
 
 function setupActionButtons() {
     // Nouveau Document
-    document.querySelector('.btn-primary').addEventListener('click', async () => {
-        window.location.href = '/pages/nouveau-document.html';
-    });
+    // document.querySelector('.btn-primary').addEventListener('click', async () => {
+    //     window.location.href = '/pages/nouveau-document.html';
+    // });
 
     // Nouveau Lecteur
     document.querySelector('.btn-info').addEventListener('click', () => {
