@@ -1,446 +1,436 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <title>SmartMedia</title>
-  <!-- Fonts and icons -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-  <!-- Nucleo Icons -->
-  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <!-- CSS Files -->
-  <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
-  <script>
-    window.addEventListener('load', function() {
-      const accessToken = localStorage.getItem('accessToken');
-      if (!accessToken) {
-        window.location.href = '/pages/sign-in.html';
-      }
-    });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
-  <script src="/assets/js/recherche-documents.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>SmartMedia</title>
+    <!-- Fonts and icons -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <!-- Nucleo Icons -->
+    <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <script>
+        window.addEventListener('load', function () {
+            const accessToken = localStorage.getItem('accessToken');
+            if (!accessToken) {
+                window.location.href = '/pages/sign-in.html';
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <script src="/assets/js/recherche-documents.js"></script>
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
-  <div class="min-height-300 bg-dark position-absolute w-100"></div>
-  <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
-    <div class="sidenav-header">
-      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="dashboard-employe.html">
-        <img src="/assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">SmartMedia</span>
-      </a>
-    </div>
-    <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="../Employe/dashboard-employe.html">
-                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
-                </div>
-                <span class="nav-link-text ms-1">Dashboard</span>
+    <div class="min-height-300 bg-dark position-absolute w-100"></div>
+    <aside
+        class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
+        id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+                aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand m-0" href="dashboard-employe.html">
+                <img src="/assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100"
+                    alt="main_logo">
+                <span class="ms-1 font-weight-bold">SmartMedia</span>
             </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="#" data-bs-toggle="collapse" data-bs-target="#gestionDocuments">
-                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ni ni-collection text-dark text-sm opacity-10"></i>
-                </div>
-                <span class="nav-link-text ms-1">Gestion Documents</span>
-                <i class="ni ni-bold-down ms-1"></i>
-            </a>
-            <div class="collapse show" id="gestionDocuments">
-                <ul class="nav nav-sm flex-column ms-4">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="../Employe/recherche-documents.html">
-                            <i class="ni ni-zoom-split-in text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Recherche Avancée</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../Employe/etat-documents.html">
-                            <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">État des Documents</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionUsagers">
-                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
-                </div>
-                <span class="nav-link-text ms-1">Gestion Usagers</span>
-                <i class="ni ni-bold-down ms-1"></i>
-            </a>
-            <div class="collapse" id="gestionUsagers">
-                <ul class="nav nav-sm flex-column ms-4">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/liste-lecteurs.html">
-                            <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Liste des Lecteurs</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/recherche-lecteurs.html">
-                            <i class="ni ni-zoom-split-in text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Recherche Lecteurs</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionPrets">
-                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ni ni-books text-dark text-sm opacity-10"></i>
-                </div>
-                <span class="nav-link-text ms-1">Gestion des Prêts</span>
-                <i class="ni ni-bold-down ms-1"></i>
-            </a>
-            <div class="collapse" id="gestionPrets">
-                <ul class="nav nav-sm flex-column ms-4">
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/retour-document.html">
-                            <i class="ni ni-curved-next text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Retour Document</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/emprunts-en-cours.html">
-                            <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Emprunts en Cours</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/gestion-retards.html">
-                            <i class="ni ni-time-alarm text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Gestion des Retards</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/historique-prets.html">
-                            <i class="ni ni-calendar-grid-58 text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Historique</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionBenevoles">
-                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ni ni-badge text-dark text-sm opacity-10"></i>
-                </div>
-                <span class="nav-link-text ms-1">Gestion Bénévoles</span>
-                <i class="ni ni-bold-down ms-1"></i>
-            </a>
-            <div class="collapse" id="gestionBenevoles">
-                <ul class="nav nav-sm flex-column ms-4">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/liste-benevoles.html">
-                            <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Liste des Bénévoles</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/periodes-benevoles.html">
-                            <i class="ni ni-calendar-grid-58 text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Périodes Autorisées</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/nouveau-benevole.html">
-                            <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Nouveau Bénévole</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../pages/achat.html">
-                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ni ni-cart text-dark text-sm opacity-10"></i>
-                </div>
-                <span class="nav-link-text ms-1">Achat</span>
-            </a>
-        </li>
-        <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../pages/profile.html">
-                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-                </div>
-                <span class="nav-link-text ms-1">Profil</span>
-            </a>
-        </li>
-      </ul>
-    </div>
-  </aside>
+        </div>
+        <hr class="horizontal dark mt-0">
+        <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="../Employe/dashboard-employe.html">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-bs-toggle="collapse" data-bs-target="#gestionDocuments">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-collection text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Gestion Documents</span>
+                        <i class="ni ni-bold-down ms-1"></i>
+                    </a>
+                    <div class="collapse show" id="gestionDocuments">
+                        <ul class="nav nav-sm flex-column ms-4">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="../Employe/recherche-documents.html">
+                                    <i class="ni ni-zoom-split-in text-dark text-sm opacity-10 me-2"></i>
+                                    <span class="nav-link-text">Recherche Avancée</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionUsagers">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Gestion Usagers</span>
+                        <i class="ni ni-bold-down ms-1"></i>
+                    </a>
+                    <div class="collapse" id="gestionUsagers">
+                        <ul class="nav nav-sm flex-column ms-4">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/liste-lecteurs.html">
+                                    <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
+                                    <span class="nav-link-text">Liste des Lecteurs</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/recherche-lecteurs.html">
+                                    <i class="ni ni-zoom-split-in text-dark text-sm opacity-10 me-2"></i>
+                                    <span class="nav-link-text">Recherche Lecteurs</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionPrets">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-books text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Gestion des Prêts</span>
+                        <i class="ni ni-bold-down ms-1"></i>
+                    </a>
+                    <div class="collapse" id="gestionPrets">
+                        <ul class="nav nav-sm flex-column ms-4">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/emprunts-en-cours.html">
+                                    <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
+                                    <span class="nav-link-text">Emprunts en Cours</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/gestion-retards.html">
+                                    <i class="ni ni-time-alarm text-dark text-sm opacity-10 me-2"></i>
+                                    <span class="nav-link-text">Gestion des Retards</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionBenevoles">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-badge text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Gestion Bénévoles</span>
+                        <i class="ni ni-bold-down ms-1"></i>
+                    </a>
+                    <div class="collapse" id="gestionBenevoles">
+                        <ul class="nav nav-sm flex-column ms-4">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/liste-benevoles.html">
+                                    <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
+                                    <span class="nav-link-text">Liste des Bénévoles</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/nouveau-benevole.html">
+                                    <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
+                                    <span class="nav-link-text">Nouveau Bénévole</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../pages/profile.html">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Profil</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
 
-  <main class="main-content position-relative border-radius-lg">
-    <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="false">
-      <div class="container-fluid py-1 px-3">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Recherche Documents</li>
-          </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Recherche Documents</h6>
+    <main class="main-content position-relative border-radius-lg">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+            data-scroll="false">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white"
+                                href="javascript:;">Pages</a></li>
+                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Recherche Documents
+                        </li>
+                    </ol>
+                    <h6 class="font-weight-bolder text-white mb-0">Recherche Documents</h6>
+                </nav>
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                        <button class="btn btn-outline-white mb-0"
+                            onclick="window.location.href='dashboard-employe.html'">
+                            <i class="fas fa-arrow-left me-2"></i>Retour
+                        </button>
+                    </div>
+                    <!-- Reste du navbar -->
+                </div>
+            </div>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <button class="btn btn-outline-white mb-0" onclick="window.location.href='dashboard-employe.html'">
-              <i class="fas fa-arrow-left me-2"></i>Retour
-            </button>
-          </div>
-          <!-- Reste du navbar -->
-        </div>
-      </div>
-    </nav>
 
-    <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-12">
-          <div class="card mb-4">
+        <div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6>Recherche de Documents</h6>
+                                <a class="nav-link" href="../Employe/nouveau-document.html">
+                                    <button class="btn btn-primary btn-sm">
+                                        <i class="fas fa-plus me-2"></i>Nouveau Document
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form id="searchForm" class="mb-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Titre</label>
+                                            <input type="text" class="form-control" id="title"
+                                                placeholder="Rechercher par titre..." autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Catégorie</label>
+                                            <select class="form-control" id="category">
+                                                <option value="">Toutes les catégories</option>
+                                                <option value="LIVRE">Livre</option>
+                                                <option value="CD-ROM">CD-ROM</option>
+                                                <option value="JOURNAL">Journal</option>
+                                                <option value="MICROFILM">Microfilm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="table-responsive mt-4">
+                                <table class="table align-items-center mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Document</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                ID</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                État</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Quantité</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Prix</th>
+                                            <th class="text-secondary opacity-7">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="searchResults">
+                                        <!-- Les résultats seront insérés ici -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer pt-3">
+                <!-- Copier le footer de dashboard-employe.html -->
+            </footer>
+        </div>
+    </main>
+
+    <!--   Core JS Files   -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/chartjs.min.js"></script>
+    <script src="/assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+    <script src="/assets/js/dashboard-employe.js"></script>
+
+    <!-- Ajouter cette div pour le formulaire de modification -->
+    <div id="edit-form-container" style="display: none;">
+        <div class="card mb-4">
             <div class="card-header pb-0">
-              <div class="d-flex justify-content-between align-items-center">
-                <h6>Recherche de Documents</h6>
-                <a class="nav-link" href="../Employe/nouveau-document.html">    
-                    <button class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus me-2"></i>Nouveau Document
-                    </button>
-                </a>
-              </div>
+                <h6>Modifier le document</h6>
             </div>
-            <div class="card-body">
-              <form id="searchForm" class="mb-4">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Titre</label>
-                      <input type="text" 
-                             class="form-control" 
-                             id="title" 
-                             placeholder="Rechercher par titre..."
-                             autocomplete="off">
+            <div class="card-body px-0 pt-0 pb-2">
+                <form id="edit-form" class="px-4">
+                    <input type="hidden" id="edit-id" name="document_id">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="edit-title">Titre</label>
+                                <input type="text" class="form-control" id="edit-title" name="titre" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="edit-type">Type</label>
+                                <select class="form-control" id="edit-type" name="type" required>
+                                    <option value="">Sélectionner un type</option>
+                                    <option value="LIVRE">Livre</option>
+                                    <option value="CD-ROM">CD-ROM</option>
+                                    <option value="JOURNAL">Journal</option>
+                                    <option value="MICROFILM">Microfilm</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Catégorie</label>
-                      <select class="form-control" id="category">
-                        <option value="">Toutes les catégories</option>
-                        <option value="LIVRE">Livre</option>
-                        <option value="CD">CD</option>
-                        <option value="DVD">DVD</option>
-                        <option value="REVUE">Revue</option>
-                      </select>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="edit-price">Prix</label>
+                                <input type="number" class="form-control" id="edit-price" name="prix" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="edit-consultable">Consultable</label>
+                                <select class="form-control" id="edit-consultable" name="consultable">
+                                    <option value="Oui">Oui</option>
+                                    <option value="Non">Non</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </form>
-
-              <div class="table-responsive mt-4">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Document</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">ID</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">État</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantité</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
-                      <th class="text-secondary opacity-7">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="searchResults">
-                    <!-- Les résultats seront insérés ici -->
-                  </tbody>
-                </table>
-              </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="edit-quantity">Quantité</label>
+                                <input type="number" class="form-control" id="edit-quantity" name="quantite" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="edit-available-quantity">Quantité Disponible</label>
+                                <input type="number" class="form-control" id="edit-available-quantity"
+                                    name="quantite_disponible" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12 text-end">
+                            <button type="button" class="btn btn-secondary me-2" id="cancel-edit">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <footer class="footer pt-3">
-        <!-- Copier le footer de dashboard-employe.html -->
-      </footer>
-    </div>
-  </main>
-
-  <!--   Core JS Files   -->
-  <script src="/assets/js/core/popper.min.js"></script>
-  <script src="/assets/js/core/bootstrap.min.js"></script>
-  <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="/assets/js/plugins/chartjs.min.js"></script>
-  <script src="/assets/js/argon-dashboard.min.js?v=2.1.0"></script>
-  <script src="/assets/js/dashboard-employe.js"></script>
-
-  <!-- Ajouter cette div pour le formulaire de modification -->
-  <div id="edit-form-container" style="display: none;">
-    <div class="card mb-4">
-        <div class="card-header pb-0">
-            <h6>Modifier le document</h6>
-        </div>
-        <div class="card-body px-0 pt-0 pb-2">
-            <form id="edit-form" class="px-4">
-                <input type="hidden" id="edit-id" name="document_id">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="edit-title">Titre</label>
-                            <input type="text" class="form-control" id="edit-title" name="titre" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="edit-type">Type</label>
-                            <select class="form-control" id="edit-type" name="type" required>
-                                <option value="">Sélectionner un type</option>
-                                <option value="LIVRE">Livre</option>
-                                <option value="CD-ROM">CD-ROM</option>
-                                <option value="JOURNAL">Journal</option>
-                                <option value="MICROFILM">Microfilm</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="edit-price">Prix</label>
-                            <input type="number" class="form-control" id="edit-price" name="prix" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="edit-consultable">Consultable</label>
-                            <select class="form-control" id="edit-consultable" name="consultable">
-                                <option value="Oui">Oui</option>
-                                <option value="Non">Non</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="edit-quantity">Quantité</label>
-                            <input type="number" class="form-control" id="edit-quantity" name="quantite" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="edit-available-quantity">Quantité Disponible</label>
-                            <input type="number" class="form-control" id="edit-available-quantity" name="quantite_disponible" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-12 text-end">
-                        <button type="button" class="btn btn-secondary me-2" id="cancel-edit">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
-  </div>
 
-  <!-- Ajouter ce JavaScript -->
-  <script>
-  // Fonction pour afficher le formulaire de modification
-  function showEditForm(document) {
-      // Remplir le formulaire avec les données du document
-      document.getElementById('edit-id').value = document.document_id;
-      document.getElementById('edit-title').value = document.titre;
-      document.getElementById('edit-type').value = document.type;
-      document.getElementById('edit-price').value = document.prix;
-      document.getElementById('edit-consultable').value = document.consultable;
-      document.getElementById('edit-quantity').value = document.quantite;
-      document.getElementById('edit-available-quantity').value = document.quantite_disponible;
+    <!-- Ajouter ce JavaScript -->
+    <script>
+        // Fonction pour afficher le formulaire de modification
+        function showEditForm(document) {
+            // Remplir le formulaire avec les données du document
+            document.getElementById('edit-id').value = document.document_id;
+            document.getElementById('edit-title').value = document.titre;
+            document.getElementById('edit-type').value = document.type;
+            document.getElementById('edit-price').value = document.prix;
+            document.getElementById('edit-consultable').value = document.consultable;
+            document.getElementById('edit-quantity').value = document.quantite;
+            document.getElementById('edit-available-quantity').value = document.quantite_disponible;
 
-      // Afficher le formulaire de modification
-      document.getElementById('edit-form-container').style.display = 'block';
-      
-      // Faire défiler jusqu'au formulaire
-      document.getElementById('edit-form-container').scrollIntoView({ behavior: 'smooth' });
-  }
+            // Afficher le formulaire de modification
+            document.getElementById('edit-form-container').style.display = 'block';
 
-  // Gérer la soumission du formulaire de modification
-  document.getElementById('edit-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const documentData = {
-          document_id: parseInt(document.getElementById('edit-id').value),
-          titre: document.getElementById('edit-title').value,
-          type: document.getElementById('edit-type').value,
-          prix: parseFloat(document.getElementById('edit-price').value),
-          consultable: document.getElementById('edit-consultable').value,
-          quantite: parseInt(document.getElementById('edit-quantity').value),
-          quantite_disponible: parseInt(document.getElementById('edit-available-quantity').value)
-      };
+            // Faire défiler jusqu'au formulaire
+            document.getElementById('edit-form-container').scrollIntoView({ behavior: 'smooth' });
+        }
 
-      try {
-          const response = await fetch('http://localhost:8080/Mediatheque/Document/update', {
-              method: 'PUT',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(documentData)
-          });
+        // Gérer la soumission du formulaire de modification
+        document.getElementById('edit-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
 
-          if (!response.ok) throw new Error('Erreur lors de la modification');
+            const documentData = {
+                document_id: parseInt(document.getElementById('edit-id').value),
+                titre: document.getElementById('edit-title').value,
+                type: document.getElementById('edit-type').value,
+                prix: parseFloat(document.getElementById('edit-price').value),
+                consultable: document.getElementById('edit-consultable').value,
+                quantite: parseInt(document.getElementById('edit-quantity').value),
+                quantite_disponible: parseInt(document.getElementById('edit-available-quantity').value)
+            };
 
-          await Swal.fire({
-              icon: 'success',
-              title: 'Succès',
-              text: 'Le document a été modifié avec succès'
-          });
+            try {
+                const response = await fetch('http://localhost:8080/Mediatheque/Document/update', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(documentData)
+                });
 
-          // Recharger la liste et cacher le formulaire
-          searchDocuments(); // Recharger la liste des documents
-          hideEditForm();
+                if (!response.ok) throw new Error('Erreur lors de la modification');
 
-      } catch (error) {
-          console.error('Erreur:', error);
-          Swal.fire({
-              icon: 'error',
-              title: 'Erreur',
-              text: 'Impossible de modifier le document'
-          });
-      }
-  });
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Succès',
+                    text: 'Le document a été modifié avec succès'
+                });
 
-  // Gérer le bouton Annuler
-  document.getElementById('cancel-edit').addEventListener('click', hideEditForm);
+                // Recharger la liste et cacher le formulaire
+                searchDocuments(); // Recharger la liste des documents
+                hideEditForm();
 
-  // Fonction pour cacher le formulaire de modification
-  function hideEditForm() {
-      document.getElementById('edit-form-container').style.display = 'none';
-  }
+            } catch (error) {
+                console.error('Erreur:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: 'Impossible de modifier le document'
+                });
+            }
+        });
 
-  // Modifier la fonction qui affiche les résultats pour inclure le bouton modifier
-  function displaySearchResults(documents) {
-      const tbody = document.getElementById('searchResults');
-      tbody.innerHTML = documents.map(doc => `
+        // Gérer le bouton Annuler
+        document.getElementById('cancel-edit').addEventListener('click', hideEditForm);
+
+        // Fonction pour cacher le formulaire de modification
+        function hideEditForm() {
+            document.getElementById('edit-form-container').style.display = 'none';
+        }
+
+        // Modifier la fonction qui affiche les résultats pour inclure le bouton modifier
+        function displaySearchResults(documents) {
+            const tbody = document.getElementById('searchResults');
+            tbody.innerHTML = documents.map(doc => `
           <tr>
               <td>${doc.titre}</td>
               <td>${doc.type}</td>
@@ -456,55 +446,56 @@
               </td>
           </tr>
       `).join('');
-  }
+        }
 
-  async function ajouterDocument() {
-      try {
-          const documentData = {
-              titre: "Nouveau document",  // Vous pouvez ajouter un formulaire modal pour ces données
-              type: "LIVRE",
-              prix: 0,
-              consultable: "Oui",
-              quantite: 1,
-              quantite_disponible: 1
-          };
+        async function ajouterDocument() {
+            try {
+                const documentData = {
+                    titre: "Nouveau document",  // Vous pouvez ajouter un formulaire modal pour ces données
+                    type: "LIVRE",
+                    prix: 0,
+                    consultable: "Oui",
+                    quantite: 1,
+                    quantite_disponible: 1
+                };
 
-          const response = await fetch('http://localhost:8080/Mediatheque/Document/save', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-              },
-              body: JSON.stringify(documentData)
-          });
+                const response = await fetch('http://localhost:8080/Mediatheque/Document/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                    },
+                    body: JSON.stringify(documentData)
+                });
 
-          if (!response.ok) {
-              throw new Error('Erreur lors de la sauvegarde');
-          }
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la sauvegarde');
+                }
 
-          const result = await response.json();
+                const result = await response.json();
 
-          // Afficher l'alerte de succès
-          Swal.fire({
-              icon: 'success',
-              title: 'Succès!',
-              text: 'Le document a été ajouté avec succès',
-              showConfirmButton: false,
-              timer: 1500
-          });
+                // Afficher l'alerte de succès
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Succès!',
+                    text: 'Le document a été ajouté avec succès',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
 
-          // Rafraîchir la liste des documents
-          searchDocuments();
+                // Rafraîchir la liste des documents
+                searchDocuments();
 
-      } catch (error) {
-          console.error('Erreur:', error);
-          Swal.fire({
-              icon: 'error',
-              title: 'Erreur',
-              text: 'Une erreur est survenue lors de l\'ajout du document'
-          });
-      }
-  }
-  </script>
+            } catch (error) {
+                console.error('Erreur:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: 'Une erreur est survenue lors de l\'ajout du document'
+                });
+            }
+        }
+    </script>
 </body>
-</html> 
+
+</html>
