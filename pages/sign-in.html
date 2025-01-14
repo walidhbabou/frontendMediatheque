@@ -122,21 +122,23 @@
             if (data.accessToken) {
                 // Stockez le token dans le localStorage
                 localStorage.setItem('accessToken', data.accessToken);
-                console.log("Token stocké :", localStorage.getItem('accessToken')); // Étape 4
-    
-                // Récupérez le rôle de l'utilisateur à partir du token ou de la réponse
-                const role = data.role; // Assurez-vous que l'API renvoie le rôle
-                console.log("Rôle de l'utilisateur :", role); // Étape 5
-    
+            localStorage.setItem('userId', data.id); // Stocker l'ID de l'utilisateur
+
+            console.log("Token stocké :", localStorage.getItem('accessToken')); // Étape 4
+            console.log("ID utilisateur stocké :", localStorage.getItem('userId')); // Afficher l'ID stocké
+
+            const role = data.role; 
+            console.log("Rôle de l'utilisateur :", role); 
+              
                 // Redirigez l'utilisateur en fonction de son rôle
                 switch (role) {
-                    case 'ROLE_LECTEUR':
+                    case 'LECTEUR':
                         window.location.href = '../pages/lecteur/dashboard-lecteur.html';
                         break;
-                    case 'ROLE_EMPLOYEE':
+                    case 'EMPLOYEE':
                         window.location.href = '../pages/Employe/dashboard-employe.html';
                         break;
-                    case 'ROLE_ADMIN':
+                    case 'ADMIN':
                         window.location.href = '../pages/admin/dashboard-admin.html';
                         break;
                     default:

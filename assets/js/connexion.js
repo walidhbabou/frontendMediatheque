@@ -90,18 +90,19 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         if (data.accessToken) {
             // Stockez le token et le rôle dans le localStorage
             localStorage.setItem('accessToken', data.accessToken);
-            localStorage.setItem('role', data.role); // Assurez-vous que le rôle est renvoyé par l'API
+            localStorage.setItem('userId', data.id); // Assurez-vous que 'data.id' contient bien l'ID du lecteur
+            localStorage.setItem('role', data.role);
 
             // Redirigez l'utilisateur en fonction de son rôle
             switch (data.role) {
-                case 'ROLE_LECTEUR':
-                    window.location.href = '../pages/lecteur/dashboard-lecteur.html';
+                case 'LECTEUR':
+                    window.location.href = '/pages/lecteur/dashboard-lecteur.html';
                     break;
-                case 'ROLE_EMPLOYEE':
-                    window.location.href = '../pages/employe/dashboard-employe.html';
+                case 'EMPLOYEE':
+                    window.location.href = '/pages/employe/dashboard-employe.html';
                     break;
-                case 'ROLE_ADMIN':
-                    window.location.href = '../pages/admin/dashboard-admin.html';
+                case 'ADMIN':
+                    window.location.href = '/pages/admin/dashboard-admin.html';
                     break;
                 default:
                     alert('Rôle non reconnu');
