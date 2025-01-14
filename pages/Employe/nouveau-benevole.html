@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <title>Recherche Lecteurs - SmartMedia</title>
+  <title>Nouveau Bénévole - SmartMedia</title>
   <!-- Fonts and icons -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
@@ -17,20 +14,16 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- CSS Files -->
   <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-dark position-absolute w-100"></div>
-  <!-- Menu latéral -->
-  <aside
-    class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
-    id="sidenav-main">
+  <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
     <div class="sidenav-header">
-      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-        aria-hidden="true" id="iconSidenav"></i>
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="dashboard-employe.html">
-        <img src="/assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100"
-          alt="main_logo">
+        <img src="/assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold">SmartMedia</span>
       </a>
     </div>
@@ -38,9 +31,8 @@
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="./dashboard-employe.html">
-            <div
-              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+          <a class="nav-link" href="../Employe/dashboard-employe.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Dashboard</span>
@@ -48,8 +40,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionDocuments">
-            <div
-              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-collection text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Gestion Documents</span>
@@ -67,15 +58,14 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#" data-bs-toggle="collapse" data-bs-target="#gestionUsagers">
-            <div
-              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+          <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionUsagers">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Gestion Usagers</span>
             <i class="ni ni-bold-down ms-1"></i>
           </a>
-          <div class="collapse show" id="gestionUsagers">
+          <div class="collapse" id="gestionUsagers">
             <ul class="nav nav-sm flex-column ms-4">
               <li class="nav-item">
                 <a class="nav-link" href="./liste-lecteurs.html">
@@ -84,7 +74,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="./recherche-lecteurs.html">
+                <a class="nav-link" href="./recherche-lecteurs.html">
                   <i class="ni ni-zoom-split-in text-dark text-sm opacity-10 me-2"></i>
                   <span class="nav-link-text">Recherche Lecteurs</span>
                 </a>
@@ -94,8 +84,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionPrets">
-            <div
-              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-books text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Gestion des Prêts</span>
@@ -119,15 +108,14 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionBenevoles">
-            <div
-              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+          <a class="nav-link active" href="#" data-bs-toggle="collapse" data-bs-target="#gestionBenevoles">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-badge text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Gestion Bénévoles</span>
             <i class="ni ni-bold-down ms-1"></i>
           </a>
-          <div class="collapse" id="gestionBenevoles">
+          <div class="collapse show" id="gestionBenevoles">
             <ul class="nav nav-sm flex-column ms-4">
               <li class="nav-item">
                 <a class="nav-link" href="./liste-benevoles.html">
@@ -136,7 +124,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./nouveau-benevole.html">
+                <a class="nav-link active" href="./nouveau-benevole.html">
                   <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
                   <span class="nav-link-text">Nouveau Bénévole</span>
                 </a>
@@ -149,8 +137,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="./profile.html">
-            <div
-              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Profil</span>
@@ -162,65 +149,25 @@
 
   <main class="main-content position-relative border-radius-lg">
     <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-      data-scroll="false">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Gestion Usagers</a>
-            </li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Recherche Lecteurs</li>
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white">Gestion Bénévoles</a></li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Nouveau Bénévole</li>
           </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Recherche Lecteurs</h6>
+          <h6 class="font-weight-bolder text-white mb-0">Nouveau Bénévole</h6>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <button class="btn btn-outline-white mb-0" onclick="window.location.href='dashboard-employe.html'">
-              <i class="fas fa-arrow-left me-2"></i>Retour
-            </button>
-          </div>
-        </div>
       </div>
     </nav>
 
-    <!-- Contenu principal -->
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-              <h6>Recherche Avancée de Lecteurs</h6>
-            </div>
-            <div class="card-body">
-              <form id="searchForm" onsubmit="loadReadersList(event)">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="name" class="form-control-label">Nom/Prénom</label>
-                      <input type="text" id="searchInput" class="form-control" placeholder="Rechercher par nom...">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mt-4">
-                  <div class="col-12 text-end">
-                    <button class="btn btn-outline-secondary" type="button" onclick="handleSearch()">
-                      <i class="fas fa-search"></i> Rechercher
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Résultats de la recherche -->
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="card mb-4">
-            <div class="card-header pb-0">
-              <h6>Résultats de la recherche</h6>
+              <h6>Liste des Lecteurs</h6>
+              <p class="text-sm mb-0">Sélectionnez un lecteur pour le transformer en bénévole</p>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
@@ -229,17 +176,12 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lecteur</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Contact</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Statut
-                      </th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        Emprunts</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date
-                        d'inscription</th>
-                      <th class="text-secondary opacity-7">Actions</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Statut</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                     </tr>
                   </thead>
-                  <tbody id="readersList">
-                    <!-- Les résultats seront insérés ici -->
+                  <tbody id="lecteursList">
+                    <!-- La liste des lecteurs sera injectée ici -->
                   </tbody>
                 </table>
               </div>
@@ -247,69 +189,103 @@
           </div>
         </div>
       </div>
-
-      <footer class="footer pt-3">
-        <!-- Même footer que les autres pages -->
-      </footer>
     </div>
   </main>
 
-  <!--   Core JS Files   -->
+  <!-- Scripts -->
   <script src="/assets/js/core/popper.min.js"></script>
   <script src="/assets/js/core/bootstrap.min.js"></script>
   <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="/assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+  <script src="/assets/js/sidebar-menu.js"></script>
 
   <script>
-    let allReaders = []; // Variable globale pour stocker tous les lecteurs
-
-    async function loadReadersList() {
+    async function loadLecteurs() {
       try {
-        const response = await fetch('http://localhost:8080/Mediatheque/lecteur/allLecteurs', {
-          method: 'GET',
-          headers: {
-            // 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-          }
-        });
-
-        if (!response.ok) throw new Error('Erreur lors du chargement des données');
-
+        const response = await fetch('http://localhost:8080/Mediatheque/lecteur/allLecteurs');
+        if (!response.ok) throw new Error('Erreur lors du chargement des lecteurs');
         const lecteurs = await response.json();
-        allReaders = lecteurs; // Stocker tous les lecteurs
-        updateReadersList(lecteurs);
-
+        displayLecteurs(lecteurs);
       } catch (error) {
         console.error('Erreur:', error);
-        Swal.fire('Erreur', 'Erreur lors du chargement des lecteurs', 'error');
+        Swal.fire('Erreur', 'Impossible de charger la liste des lecteurs', 'error');
       }
     }
 
-    function updateReadersList(lecteurs) {
-      const tbody = document.getElementById('readersList');
+    function displayLecteurs(lecteurs) {
+      const tbody = document.getElementById('lecteursList');
       tbody.innerHTML = lecteurs.map(lecteur => `
-<tr>
-  <td>
-    <div class="d-flex px-2 py-1">
-      <div class="d-flex flex-column justify-content-center">
-        <h6 class="mb-0 text-sm">${lecteur.user.lastname || 'N/A'} ${lecteur.user.username || ''}</h6>
-        <p class="text-xs text-secondary mb-0">ID: ${lecteur.lecteurId || 'N/A'}</p>
-      </div>
-    </div>
-  </td>
-  <td>
-    <p class="text-xs font-weight-bold mb-0">${lecteur.user.email || 'N/A'}</p>
-  </td>
-  <td class="align-middle text-center text-sm">
-    <span class="badge badge-sm bg-gradient-${getStatusColor(lecteur.statut)}">
-      ${lecteur.statut || 'inconnu'}
-    </span>
-  </td>
-  <td class="align-middle text-center">
-    <span class="text-secondary text-xs font-weight-bold">${lecteur.nbEmprunts || 0}</span>
-  </td>
-</tr>
-`).join('');
+        <tr>
+          <td>
+            <div class="d-flex px-2 py-1">
+              <div class="d-flex flex-column justify-content-center">
+                <h6 class="mb-0 text-sm">${lecteur.user.lastname || 'N/A'} ${lecteur.user.username || ''}</h6>
+                <p class="text-xs text-secondary mb-0">ID: ${lecteur.lecteurId}</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p class="text-xs font-weight-bold mb-0">${lecteur.user.email || 'N/A'}</p>
+          </td>
+          <td class="align-middle text-center text-sm">
+            <span class="badge badge-sm bg-gradient-${getStatusColor(lecteur.statut)}">
+              ${lecteur.statut || 'inconnu'}
+            </span>
+          </td>
+          <td class="align-middle text-center">
+            <button onclick="confirmerAjoutBenevole(${lecteur.lecteurId})" class="btn btn-sm btn-primary">
+              <i class="fas fa-user-plus me-2"></i>Ajouter comme bénévole
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function ajouterBenevole(lecteurId) {
+      try {
+        const response = await fetch('http://localhost:8080/Mediatheque/equipe-benevol/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+          },
+          body: JSON.stringify({
+            benevol_id: null,  // sera généré par le serveur
+            equipe_id: 1,      // ID de l'équipe par défaut
+            lecteur: {      // Utilisation de lecteurDto au lieu de lecteur
+              lecteurId: lecteurId,
+              statut: "actif"  // statut par défaut
+            }
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Erreur lors de l\'ajout du bénévole');
+        }
+
+        const result = await response.json();
+
+        // Afficher l'alerte de succès
+        await Swal.fire({
+          icon: 'success',
+          title: 'Succès',
+          text: 'Le lecteur a été ajouté comme bénévole avec succès',
+          showConfirmButton: true
+        });
+
+        // Recharger la liste des lecteurs
+        loadLecteurs();
+
+      } catch (error) {
+        console.error('Erreur:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Impossible d\'ajouter le bénévole. Veuillez réessayer.'
+        });
+      }
     }
 
     function getStatusColor(status) {
@@ -322,19 +298,27 @@
       }
     }
 
-    function handleSearch() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const filteredReaders = allReaders.filter(lecteur => {
-        const fullName = `${lecteur.user.lastname || ''} ${lecteur.user.username || ''}`.toLowerCase();
-        return fullName.includes(searchTerm);
+    // Ajouter une fonction de confirmation
+    function confirmerAjoutBenevole(lecteurId) {
+      Swal.fire({
+        title: 'Confirmation',
+        text: 'Voulez-vous vraiment ajouter ce lecteur comme bénévole ?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, ajouter',
+        cancelButtonText: 'Annuler',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          ajouterBenevole(lecteurId);
+        }
       });
-      updateReadersList(filteredReaders);
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-      loadReadersList();
-    });
+    // Charger la liste des lecteurs au chargement de la page
+    document.addEventListener('DOMContentLoaded', loadLecteurs);
   </script>
 </body>
 
-</html>
+</html> 
