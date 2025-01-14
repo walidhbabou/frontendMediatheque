@@ -2,20 +2,20 @@
 <html lang="en">
 
 <link>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-  <title>SmartMedia</title>
-  <!-- Fonts and icons -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-  <!-- Nucleo Icons -->
-  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <!-- CSS Files -->
-  <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<title>SmartMedia</title>
+<!-- Fonts and icons -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+<!-- Nucleo Icons -->
+<link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
+<link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
+<!-- Font Awesome Icons -->
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+<!-- CSS Files -->
+<link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
 
 </head>
 
@@ -34,10 +34,12 @@
                 <div class="card-body">
                   <form role="form" id="loginForm">
                     <div class="mb-3">
-                      <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email" id="email" required>
+                      <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email"
+                        id="email" required>
                     </div>
                     <div class="mb-3">
-                      <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" id="password" required>
+                      <input type="password" class="form-control form-control-lg" placeholder="Password"
+                        aria-label="Password" id="password" required>
                     </div>
                     <div class="form-check form-switch">
                       <input class="form-check-input" type="checkbox" id="rememberMe">
@@ -53,14 +55,17 @@
                 </div>
               </div>
             </div>
-            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-                <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" 
-     style="background-image: url('../assets/img/login.jpg'); background-size: cover;">
-                  <span class="mask bg-gradient-primary opacity-6"></span>
-                  <h4 class="mt-5 text-white font-weight-bolder position-relative">La vie non examinée ne vaut pas la peine d’être vécue</h4>
-                  <p class="text-white position-relative">disait Socrate</p>
-                </div>
+            <div
+              class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+              <div
+                class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
+                style="background-image: url('../assets/img/login.jpg'); background-size: cover;">
+                <span class="mask bg-gradient-primary opacity-6"></span>
+                <h4 class="mt-5 text-white font-weight-bolder position-relative">La vie non examinée ne vaut pas la
+                  peine d’être vécue</h4>
+                <p class="text-white position-relative">disait Socrate</p>
               </div>
+            </div>
           </div>
         </div>
       </div>
@@ -85,73 +90,74 @@
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
   <script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Empêche le rechargement de la page
-    
-        // Récupère les valeurs du formulaire
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-    
-        // Crée l'objet de données à envoyer
-        const data = {
-            email: email,
-            password: password
-        };
-    
-        console.log("Données du formulaire :", data); // Étape 1
-    
-        // Envoie la requête POST à l'API
-        fetch('http://localhost:8080/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+      event.preventDefault(); // Empêche le rechargement de la page
+
+      // Récupère les valeurs du formulaire
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Crée l'objet de données à envoyer
+      const data = {
+        email: email,
+        password: password
+      };
+
+      console.log("Données du formulaire :", data); // Étape 1
+
+      // Envoie la requête POST à l'API
+      fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
         .then(response => {
-            console.log("Réponse reçue :", response); // Étape 2
-    
-            if (!response.ok) {
-                throw new Error('Erreur réseau ou serveur');
-            }
-            return response.json();
+          console.log("Réponse reçue :", response); // Étape 2
+
+          if (!response.ok) {
+            throw new Error('Erreur réseau ou serveur');
+          }
+          return response.json();
         })
         .then(data => {
-            console.log("Données JSON :", data); // Étape 3
-    
-            if (data.accessToken) {
-                // Stockez le token dans le localStorage
-                localStorage.setItem('accessToken', data.accessToken);
-                console.log("Token stocké :", localStorage.getItem('accessToken')); // Étape 4
-    
-                // Récupérez le rôle de l'utilisateur à partir du token ou de la réponse
-                const role = data.role; // Assurez-vous que l'API renvoie le rôle
-                console.log("Rôle de l'utilisateur :", role); // Étape 5
-    
-                // Redirigez l'utilisateur en fonction de son rôle
-                switch (role) {
-                    case 'ROLE_LECTEUR':
-                        window.location.href = '../pages/lecteur/dashboard-lecteur.html';
-                        break;
-                    case 'ROLE_EMPLOYEE':
-                        window.location.href = '../pages/Employe/dashboard-employe.html';
-                        break;
-                    case 'ROLE_ADMIN':
-                        window.location.href = '../pages/admin/dashboard-admin.html';
-                        break;
-                    default:
-                        alert('Rôle non reconnu');
-                        break;
-                }
-    
-                console.log("Redirection vers :", window.location.href); // Étape 6
-            } else {
-                alert('Erreur lors de la connexion: ' + data.message);
+          console.log("Données JSON :", data); // Étape 3
+
+          if (data.accessToken) {
+            // Stockez le token dans le localStorage
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('userEmail', document.getElementById('email').value);
+            console.log("Token stocké :", localStorage.getItem('accessToken')); // Étape 4
+
+            // Récupérez le rôle de l'utilisateur à partir du token ou de la réponse
+            const role = data.role; // Assurez-vous que l'API renvoie le rôle
+            console.log("Rôle de l'utilisateur :", role); // Étape 5
+
+            // Redirigez l'utilisateur en fonction de son rôle
+            switch (role) {
+              case 'ROLE_LECTEUR':
+                window.location.href = '../pages/lecteur/dashboard-lecteur.html';
+                break;
+              case 'ROLE_EMPLOYEE':
+                window.location.href = '../pages/Employe/dashboard-employe.html';
+                break;
+              case 'ROLE_ADMIN':
+                window.location.href = '../pages/admin/dashboard-admin.html';
+                break;
+              default:
+                alert('Rôle non reconnu');
+                break;
             }
+
+            console.log("Redirection vers :", window.location.href); // Étape 6
+          } else {
+            alert('Erreur lors de la connexion: ' + data.message);
+          }
         })
         .catch(error => {
-            console.error('Erreur:', error);
-            alert('Une erreur s\'est produite lors de la connexion.');
+          console.error('Erreur:', error);
+          alert('Une erreur s\'est produite lors de la connexion.');
         });
     });
   </script>

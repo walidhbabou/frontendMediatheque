@@ -152,66 +152,11 @@
         <!-- End Navbar -->
 
         <div class="container-fluid py-4">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header pb-0">
-                            <div class="d-flex align-items-center">
-                                <p class="mb-0">Modifier le profil</p>
-                                <button class="btn btn-primary btn-sm ms-auto"
-                                    onclick="saveProfile()">Enregistrer</button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <form id="profileForm">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="firstName" class="form-control-label">Prénom</label>
-                                            <input class="form-control" type="text" id="firstName" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="lastName" class="form-control-label">Nom</label>
-                                            <input class="form-control" type="text" id="lastName" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="email" class="form-control-label">Email</label>
-                                            <input class="form-control" type="email" id="email" required>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <hr class="horizontal dark">
-                                <p class="text-uppercase text-sm">Changer le mot de passe</p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="currentPassword" class="form-control-label">Mot de passe
-                                                actuel</label>
-                                            <input class="form-control" type="password" id="currentPassword">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="newPassword" class="form-control-label">Nouveau mot de
-                                                passe</label>
-                                            <input class="form-control" type="password" id="newPassword">
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
+            <div class="flex-column">
+                <div class="col-md-12">
                     <div class="card card-profile">
-                        <img src="/assets/img/bg-profile.jpg" alt="Image de profil" class="card-img-top">
+                        <img src="/assets/img/bg-profile.jpg" alt="Image de profil" class="card-img-top"
+                            style="height: 250px; object-fit: cover;">
                         <div class="row justify-content-center">
                             <div class="col-4 col-lg-4 order-lg-2">
                                 <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
@@ -230,6 +175,38 @@
                         </div>
                     </div>
                 </div>
+                <div style="margin-top: 20px;" class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="profileForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="firstName" class="form-control-label">Prénom</label>
+                                            <input class="form-control" type="text" id="firstName" disabled required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="lastName" class="form-control-label">Nom</label>
+                                            <input class="form-control" type="text" id="lastName" disabled required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email" class="form-control-label">Email</label>
+                                            <input class="form-control" type="email" id="email" disabled required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- <hr class="horizontal dark"> -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -242,27 +219,26 @@
     <script src="/assets/js/argon-dashboard.min.js"></script>
 
     <script>
+        console.log(localStorage)
         // Charger les données du profil
         async function loadProfile() {
             try {
-                const response = await fetch('http://votre-api/profile', {
+                const response = await fetch(`http://localhost:8080/Mediatheque/user/${localStorage.getItem('userEmail')}`, {
                     headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                        // 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
                     }
                 });
 
-                if (!response.ok) throw new Error('Erreur lors du chargement du profil');
-
                 const profile = await response.json();
 
-                // Remplir le formulaire
-                document.getElementById('firstName').value = profile.firstName;
-                document.getElementById('lastName').value = profile.lastName;
-                document.getElementById('email').value = profile.email;
-                document.getElementById('phone').value = profile.phone;
+                console.log(profile)
 
+                // Remplir le formulaire
+                document.getElementById('firstName').value = profile.firstname;
+                document.getElementById('lastName').value = profile.lastname;
+                document.getElementById('email').value = profile.email;
                 // Mettre à jour l'affichage du profil
-                document.getElementById('profileName').textContent = `${profile.firstName} ${profile.lastName}`;
+                document.getElementById('profileName').textContent = `${profile.firstname} ${profile.lastname}`;
                 document.getElementById('profileRole').textContent = profile.role;
 
             } catch (error) {
