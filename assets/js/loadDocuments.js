@@ -7,6 +7,7 @@ const GET_BY_ID_URL = BASE_URL;
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    loadDocuments();
   const createButton         = document.getElementById('create-document-button');
   const createFormContainer  = document.getElementById('create-form');
   const createForm           = document.getElementById('create-document-form');
@@ -36,12 +37,18 @@ document.addEventListener('DOMContentLoaded', function () {
       return response.json();
     })
     .then(data => {
-      documents = data;
+        documents = data;
+
+        const totalDocumentsElement = document.getElementById('total-documents');
+        if (totalDocumentsElement) {
+          totalDocumentsElement.textContent = data.length;
+        }
       renderTable();
     })
     .catch(error => {
       console.error('Erreur lors du chargement des documents:', error);
     });
+    
   }
 
   function renderTable() {
@@ -101,51 +108,58 @@ document.addEventListener('DOMContentLoaded', function () {
     createFormContainer.style.display = 'none';
     createForm.reset();
   });
-
+ 
   createForm.addEventListener('submit', function (e) {
     e.preventDefault();
-
+  
     const newDocument = {
-      titre:               document.getElementById('create-title').value,
-      type:                document.getElementById('create-type').value,
-      prix:                parseFloat(document.getElementById('create-price').value),
-      consultable:         (document.getElementById('create-consultable').value === 'Oui'),
-      quantite:            parseInt(document.getElementById('create-quantity').value),
-      quantite_disponible: parseInt(document.getElementById('create-available-quantity').value)
+      document: {
+        titre: document.getElementById('create-title').value.trim(),
+        type: document.getElementById('create-type').value.trim(),
+        prix: parseFloat(document.getElementById('create-price').value),
+        consultable: document.getElementById('create-consultable').value === 'Oui',
+        quantite: parseInt(document.getElementById('create-quantity').value),
+        quantite_disponible: parseInt(document.getElementById('create-available-quantity').value)
+      },
+      livre: {
+        auteur: document.getElementById('create-type').value === 'LIVRE' 
+                ? document.getElementById('author').value.trim() 
+                : "" // Champ vide pour les autres types
+      }
     };
-
+  
+    console.log('Données envoyées :', newDocument);
+  
     fetch(SAVE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newDocument)
-    })
-    .then(response => {
-        console.log('POST /save -> status:', response.status);
-        if (!response.ok) {
-          return response.text().then(txt => {
-            console.error('Erreur création document:', txt);
-            throw new Error('Impossible de créer le document (code HTTP ' + response.status + ')');
-          });
-        }
-        return response.text();
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newDocument)
       })
-    .then(result => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Document créé avec succès',
-        showConfirmButton: false,
-        timer: 1500
-      });
-      createFormContainer.style.display = 'none';
-      createForm.reset();
-      loadDocuments();
-    })
-    .catch(error => {
-      console.error(error);
-      Swal.fire('Erreur', error.message, 'error');
-    });
+        .then(response => {
+          if (!response.ok) {
+            return response.text().then(text => {
+              console.error('Erreur création document:', text);
+              throw new Error('Impossible de créer le document (code HTTP ' + response.status + ')');
+            });
+          }
+          return response.text(); // Traite la réponse comme du texte
+        })
+        .then(result => {
+          Swal.fire({
+            icon: 'success',
+            title: result, // "Document ajouté avec succès"
+            showConfirmButton: false,
+            timer: 1500
+          });
+          createFormContainer.style.display = 'none';
+          createForm.reset();
+          loadDocuments();
+        })
+        .catch(error => {
+          console.error(error);
+          Swal.fire('Erreur', error.message, 'error');
+        });
   });
-
 
   window.editDocument = function (id) {
     fetch(`${GET_BY_ID_URL}/${id}`, {
@@ -269,6 +283,14 @@ document.addEventListener('DOMContentLoaded', function () {
     currentPage = 1; 
     renderTable();
   });
-
+  document.getElementById('create-type').addEventListener('change', function () {
+    const authorField = document.getElementById('create-author');
+    if (this.value === 'LIVRE') {
+      authorField.style.display = 'block';
+    } else {
+      authorField.style.display = 'none';
+    }
+  })
   loadDocuments();
+  
 });

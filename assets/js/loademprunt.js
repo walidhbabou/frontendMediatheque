@@ -80,12 +80,21 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Erreur lors de la création de l\'emprunt');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: `Erreur lors de la création de l'emprunt : ${error.message}`,
+                });
             }
             return response.json();
         })
         .then(async data => {
-            alert('Emprunt créé avec succès');
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès',
+                text: 'Emprunt créé avec succès !',
+            });
+
 
             // On récupère l'ID du document et l'ID de l'abonnement
             const docId = formData.document.document_id;
@@ -172,8 +181,11 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.json();
         })
         .then(data => {
-            alert('Emprunt modifié avec succès');
-            editEmpruntForm.reset();
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès',
+                text: 'Emprunt Modifié avec succès !',
+            });            editEmpruntForm.reset();
             editEmpruntFormDiv.style.display = 'none';
             loadEmprunts(); // Recharger la liste des emprunts
         })
@@ -354,14 +366,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Formatage pour affichage (table)
     // -----------------------
     function formatDate(dateString) {
-        if (!dateString) return '';
+        if (!dateString) return 'N/A';
         const date = new Date(dateString);
-        if (isNaN(date.getTime())) return '';
-        return new Intl.DateTimeFormat('fr-FR', {
-            day:   '2-digit',
-            month: '2-digit',
-            year:  'numeric'
-        }).format(date);
+        return date.toLocaleDateString();
     }
 
     // -----------------------
@@ -481,23 +488,55 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function applyFiltersAndPagination() {
-        // Obtenez la requête de recherche
+        // Obtenir la requête de recherche
         const searchQuery = document.getElementById('search-input').value.toLowerCase();
-
-        // Filtrer les emprunts par document
-        filteredEmprunts = emprunts.filter(emprunt => {
-            // Vérifier si le document de l'emprunt correspond à la requête de recherche
-            return emprunt.document.toLowerCase().includes(searchQuery);
+    
+        // Filtrer les emprunts
+        const filteredEmprunts = emprunts.filter(emprunt => {
+            return emprunt.document?.titre?.toLowerCase().includes(searchQuery);
         });
-
+    
+        // Réinitialiser à la première page
+        currentPage = 1;
+    
         // Appliquer la pagination
         const startIndex = (currentPage - 1) * itemsPerPage;
         const paginatedEmprunts = filteredEmprunts.slice(startIndex, startIndex + itemsPerPage);
-
+    
         // Afficher les résultats
-        renderEmpruntTable(paginatedEmprunts);
-        updatePaginationButtons(filteredEmprunts.length);
+        renderTable(paginatedEmprunts);
+        renderPagination(filteredEmprunts.length);
     }
+    
+    function renderTable(emprunts) {
+        const empruntTable = document.getElementById('emprunt-table');
+        empruntTable.innerHTML = '';
+    
+        if (emprunts.length === 0) {
+            empruntTable.innerHTML = '<tr><td colspan="4">Aucun emprunt trouvé.</td></tr>';
+            return;
+        }
+    
+        emprunts.forEach(emprunt => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${formatDate(emprunt.date_emprunt)}</td>
+                <td>${formatDate(emprunt.date_retour)}</td>
+                <td>${emprunt.document?.titre || 'N/A'}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning edit-emprunt" data-id="${emprunt.emprunt_id}">
+                        <i class="fas fa-edit"></i> Modifier
+                    </button>
+                </td>
+            `;
+            empruntTable.appendChild(row);
+        });
+    }
+    
+    document.getElementById('search-input').addEventListener('input', () => {
+        applyFiltersAndPagination();
+    });
+    
 
     function renderEmpruntTable(emprunts) {
         const empruntTableBody = document.getElementById('empruntTable').querySelector('tbody');

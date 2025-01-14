@@ -70,11 +70,16 @@
                   </button>
                 </div>
                 <div class="card-header pb-0">
-                  <h6>Table des abonnements</h6>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h6>Table des abonnements</h6>
+                    <div class="search-box">
+                      <input type="text" id="search-input" class="form-control" placeholder="Rechercher un abonnement...">
+                    </div>
+                  </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                   <div class="table-responsive p-0">
-                    <table class="table mb-0">
+                    <table class="table table-striped" id="abonnementTable">
                       <thead>
                         <tr>
                             <th>Lecteur</th>                          <th>Date d'expiration</th>
@@ -89,6 +94,14 @@
                     </table>
                   </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                      <nav>
+                        <ul class="pagination" id="paginationAbo"></ul>
+                      </nav>
+                    </div>
+                  </div>
+                  
               </div>
               
               <!-- Formulaire de création -->
@@ -225,6 +238,7 @@
           documentLink.classList.add('active'); 
         }
       });
+      
   </script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../../assets/js/argon-dashboard.min.js?v=2.1.0"></script>

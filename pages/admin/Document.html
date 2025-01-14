@@ -171,13 +171,13 @@
                   <div class="form-group">
                     <label for="create-type">Type</label>
                     <select class="form-control" id="create-type" name="type" required>
-                        <option value="">Sélectionner un type</option>
-                        <option value="LIVRE">Livre</option>
-                        <option value="CD-ROM">CD-ROM</option>
-                        <option value="JOURNAL">Journal</option>
-                        <option value="MICROFILM">Microfilm</option>
+                      <option value="">Sélectionner un type</option>
+                      <option value="LIVRE">Livre</option>
+                      <option value="CD-ROM">CD-ROM</option>
+                      <option value="JOURNAL">Journal</option>
+                      <option value="MICROFILM">Microfilm</option>
                     </select>
-                </div>
+                  </div>
                   <div class="form-group">
                     <label for="create-price">Prix</label>
                     <input type="number" step="0.01" class="form-control" id="create-price" name="prix" required>
@@ -189,7 +189,10 @@
                       <option value="Non">Non</option>
                     </select>
                   </div>
-                
+                  <div class="form-group" id="create-author" style="display: none;">
+                    <label for="create-author">Auteur</label>
+                    <input type="text" class="form-control" id="author" name="auteur">
+                  </div>
                   <div class="form-group">
                     <label for="create-quantity">Quantité</label>
                     <input type="number" class="form-control" id="create-quantity" name="quantite" required>
@@ -239,12 +242,14 @@
     function loadDashboard() {
       const dashboardUrl = '../admin/dashboard-admin.html';
       const dashboardContent = document.getElementById('dashboard-content');
-
+        
       fetch(dashboardUrl)
         .then(response => {
           if (!response.ok) {
+
             throw new Error('Erreur lors du chargement du tableau de bord.');
           }
+          console.log(response);
           return response.text();
         })
         .then(html => {

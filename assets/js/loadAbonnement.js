@@ -10,7 +10,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const createLecteurSelect = document.getElementById('create-lecteur');
     const editLecteurSelect = document.getElementById('edit-lecteur');
     const editAbonnementForm = document.getElementById('edit-abonnement-form');
+    const paginationElement = document.getElementById('paginationAbo');
   
+    let abonnements = [];
+    let currentPage = 1;
+    const itemsPerPage = 5;
+
     // Afficher le formulaire de création
     createButton.addEventListener('click', () => {
       createForm.style.display = 'block';
@@ -26,50 +31,30 @@ document.addEventListener('DOMContentLoaded', function () {
     cancelEditButton.addEventListener('click', () => {
       editForm.style.display = 'none';
     });
-  
+    function applyPagination() {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const paginatedEmprunts = abonnements.slice(startIndex, startIndex + itemsPerPage);
+      
+        renderTable(paginatedEmprunts);
+        renderPagination(abonnements.length);
+      }
     // Charger tous les abonnements
     function loadAbonnements() {
       fetch(`${apiUrl}/All`)
         .then(response => {
-          if (!response.ok) {
-            throw new Error('Erreur lors du chargement des abonnements');
-          }
+          if (!response.ok) throw new Error('Erreur lors du chargement des abonnements');
           return response.json();
         })
         .then(data => {
-          console.log('Données reçues des abonnements:', data);
-          abonnementTable.innerHTML = '';
-          
-          if (!data || data.length === 0) {
-            abonnementTable.innerHTML = '<tr><td colspan="6">Aucun abonnement trouvé</td></tr>';
-            return;
-          }
-
-          data.forEach(abonnement => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-              <td>${abonnement.lecteurName || ''} ${abonnement.lecteurlastName || ''}</td>
-              <td>${formatDateForDisplay(abonnement.dateinscription)}</td>
-              <td>${formatDateForDisplay(abonnement.dateexpiration)}</td>
-              <td>${abonnement.solde || 0} €</td>
-              <td>
-                <button class="btn btn-sm btn-warning edit-btn" data-id="${abonnement.abonnementId}">
-                  <i class="fas fa-edit"></i> Modifier
-                </button>
-                
-              </td>
-            `;
-            abonnementTable.appendChild(row);
-          });
+          abonnements = data; // Stocker tous les abonnements
+          applyFiltersAndPagination();
         })
         .catch(error => {
-          console.error('Erreur lors du chargement:', error);
+          console.error('Erreur:', error);
           abonnementTable.innerHTML = `
-            <tr>
-              <td colspan="6" class="text-danger">
-                Erreur lors du chargement des abonnements: ${error.message}
-              </td>
-            </tr>
+            <tr><td colspan="5" class="text-danger">
+              Erreur lors du chargement: ${error.message}
+            </td></tr>
           `;
         });
     }
@@ -112,12 +97,12 @@ document.addEventListener('DOMContentLoaded', function () {
       }
   
       const formData = {
-        date_expiration: document.getElementById('create-date-expiration').value,
-        date_inscription: document.getElementById('create-date-inscription').value,
+        dateexpiration: document.getElementById('create-date-expiration').value,
+        dateinscription :  document.getElementById('create-date-inscription').value,
         solde: document.getElementById('create-solde').value,
         lecteurId: parseInt(lecteurId) // Convertir en nombre
       };
-  
+    
       fetch(`${apiUrl}/add`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -274,4 +259,104 @@ document.addEventListener('DOMContentLoaded', function () {
         return '';
       }
     }
+  
+    function applyFiltersAndPagination() {
+        const searchQuery = document.getElementById('search-input').value.toLowerCase();
+      
+        // Filtrer les abonnements
+        const filteredAbonnements = abonnements.filter(abonnement => {
+          const nomComplet = `${abonnement.lecteurName || ''} ${abonnement.lecteurlastName || ''}`.toLowerCase();
+          const dateExpiration = formatDateForDisplay(abonnement.dateexpiration).toLowerCase();
+          const dateInscription = formatDateForDisplay(abonnement.dateinscription).toLowerCase();
+          const solde = abonnement.solde?.toString().toLowerCase() || '';
+      
+          return (
+            nomComplet.includes(searchQuery) ||
+            dateExpiration.includes(searchQuery) ||
+            dateInscription.includes(searchQuery) ||
+            solde.includes(searchQuery)
+          );
+        });
+      
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const paginatedAbonnements = filteredAbonnements.slice(startIndex, startIndex + itemsPerPage);
+      
+        renderAbonnements(paginatedAbonnements);
+        renderPagination(filteredAbonnements.length);
+      }
+      
+    function renderAbonnements(abonnements) {
+      abonnementTable.innerHTML = '';
+      
+      if (abonnements.length === 0) {
+        abonnementTable.innerHTML = '<tr><td colspan="5">Aucun abonnement trouvé</td></tr>';
+        return;
+      }
+
+      abonnements.forEach(abonnement => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${abonnement.lecteurName || ''} ${abonnement.lecteurlastName || ''}</td>
+          <td>${formatDateForDisplay(abonnement.dateinscription)}</td>
+          <td>${formatDateForDisplay(abonnement.dateexpiration)}</td>
+          <td>${abonnement.solde || 0} €</td>
+          <td>
+            <button class="btn btn-sm btn-warning edit-btn" data-id="${abonnement.abonnementId}">
+              <i class="fas fa-edit"></i> Modifier
+            </button>
+          </td>
+        `;
+        abonnementTable.appendChild(row);
+      });
+    }
+
+    function renderPagination(totalItems) {
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        paginationElement.innerHTML = '';
+
+        if (totalPages <= 1) return; // Pas de pagination si une seule page
+
+        // Bouton précédent
+        const prevLi = document.createElement('li');
+        prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+        prevLi.innerHTML = '<button class="page-link">&laquo;</button>';
+        prevLi.addEventListener('click', () => {
+          if (currentPage > 1) {
+            currentPage--;
+            applyFiltersAndPagination();
+          }
+        });
+        paginationElement.appendChild(prevLi);
+
+        // Boutons de pages
+        for (let i = 1; i <= totalPages; i++) {
+          const li = document.createElement('li');
+          li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+          li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+          li.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentPage = i;
+            applyFiltersAndPagination();
+          });
+          paginationElement.appendChild(li);
+        }
+
+        // Bouton suivant
+        const nextLi = document.createElement('li');
+        nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+        nextLi.innerHTML = '<button class="page-link">&raquo;</button>';
+        nextLi.addEventListener('click', () => {
+          if (currentPage < totalPages) {
+            currentPage++;
+            applyFiltersAndPagination();
+          }
+        });
+        paginationElement.appendChild(nextLi);
+    }
+
+    // Ajouter l'écouteur d'événements pour la recherche
+    document.getElementById('search-input').addEventListener('input', () => {
+      currentPage = 1; // Réinitialiser à la première page lors d'une recherche
+      applyFiltersAndPagination();
+    });
   });

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Profils Lecteurs - Médiathèque</title>
+
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../../assets/css/argon-dashboard.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <style>
+   /* Custom CSS for Todo List */
+.todo-list-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+}
+
+.todo-priority {
+    font-size: 0.8em;
+    padding: 3px 6px;
+    border-radius: 3px;
+    color: white;
+}
+
+.priority-low {
+    background-color: #28a745;
+}
+
+.priority-medium {
+    background-color: #ffc107;
+}
+
+.priority-high {
+    background-color: #dc3545;
+}
+
+.todo-due-date {
+    font-size: 0.8em;
+    color: #6c757d;
+}
+
+.todo-actions button {
+    margin-left: 5px;
+}
+/* Centrer la Todo List */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Prend toute la hauteur de la page */
+  }
+  
+  /* Ajuster la largeur de la carte */
+  .card {
+    width: 100%;
+    max-width: 800px; /* Ajustez la largeur maximale selon vos besoins */
+  }
+  
+  /* Centrer le modal */
+  .modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem); /* Centrer verticalement */
+  }
+  .todo-priority {
+    font-size: 0.8em;
+    padding: 3px 6px;
+    border-radius: 3px;
+    color: white;
+}
+
+.priority-low {
+    background-color: #28a745;
+}
+
+.priority-medium {
+    background-color: #ffc107;
+}
+
+.priority-high {
+    background-color: #dc3545;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #e0a800;
+}
+  </style>
+</head>
+
+    <body class="g-sidenav-show bg-gray-100">
+        <div class="min-height-300 bg-dark position-absolute w-100"></div>
+        <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
+          <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" 
+               aria-hidden="true" id="iconSidenav">
+            </i>
+            <a class="navbar-brand m-0"  target="_blank">
+              <img src="../../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo">
+              <span class="ms-1 font-weight-bold">SmartMedia</span>
+            </a>
+          </div>
+          <hr class="horizontal dark mt-0">
+          <div id="dashboard-content"></div>
+        </aside>
+        <main class="main-content position-relative border-radius-lg">
+            <div class="container-fluid py-4">
+              <div class="row justify-content-center"> <!-- Centrer la ligne -->
+                <div class="col-lg-8"> <!-- Ajuster la largeur pour centrer -->
+                  <div class="card">
+                    <div class="card-header pb-0">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Todo List</h6>
+                        <button class="btn btn-primary btn-sm" id="add-todo">
+                          <i class="fas fa-plus"></i> Nouvelle Tâche
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="todo-list-container">
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="search-todo" placeholder="Rechercher une tâche...">
+                        </div>
+                        <ul class="list-group" id="todo-list">
+                          <!-- Les tâches seront ajoutées ici dynamiquement -->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Modal pour ajouter une tâche -->
+            <div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered"> <!-- Centrer le modal -->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="todoModalLabel">Nouvelle Tâche</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="todo-form">
+                      <div class="mb-3">
+                        <label for="todo-title" class="form-label">Titre</label>
+                        <input type="text" class="form-control" id="todo-title" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="todo-description" class="form-label">Description</label>
+                        <textarea class="form-control" id="todo-description" rows="3"></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="todo-priority" class="form-label">Priorité</label>
+                        <select class="form-control" id="todo-priority">
+                          <option value="low">Basse</option>
+                          <option value="medium">Moyenne</option>
+                          <option value="high">Haute</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="todo-due-date" class="form-label">Date d'échéance</label>
+                        <input type="date" class="form-control" id="todo-due-date">
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" id="save-todo">Enregistrer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal pour modifier la priorité -->
+<div class="modal fade" id="editTodoModal" tabindex="-1" aria-labelledby="editTodoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editTodoModalLabel">Modifier la Priorité</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-todo-form">
+                    <div class="mb-3">
+                        <label for="edit-todo-priority" class="form-label">Nouvelle Priorité</label>
+                        <select class="form-control" id="edit-todo-priority">
+                            <option value="low">Basse</option>
+                            <option value="medium">Moyenne</option>
+                            <option value="high">Haute</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" id="save-edit-todo">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+          </main>
+  <!-- Ajouter avant la fermeture du body, après les autres scripts -->
+  <script src="../../assets/js/core/popper.min.js"></script>
+  <script src="../../assets/js/core/bootstrap.min.js"></script>
+  <script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    // Charger le menu lateral "dashboard" au démarrage
+    document.addEventListener('DOMContentLoaded', function () {
+      const dashboardUrl = '../admin/dashboard-admin.html';
+      const dashboardContent = document.getElementById('dashboard-content');
+
+      fetch(dashboardUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erreur lors du chargement du tableau de bord.');
+          }
+          return response.text();
+        })
+        .then(html => {
+          dashboardContent.innerHTML = html;
+        })
+        .catch(error => {
+          console.error('Erreur :', error);
+          dashboardContent.innerHTML = '<p>Impossible de charger le tableau de bord.</p>';
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const addTodoButton = document.getElementById('add-todo');
+        const saveTodoButton = document.getElementById('save-todo');
+        const todoList = document.getElementById('todo-list');
+        const searchTodoInput = document.getElementById('search-todo');
+        const todoModal = new bootstrap.Modal(document.getElementById('todoModal'));
+    
+        // Charger les tâches depuis le localStorage au démarrage
+        loadTodos();
+    
+        // Ouvrir le modal pour ajouter une tâche
+        addTodoButton.addEventListener('click', () => {
+            todoModal.show();
+        });
+    
+        // Enregistrer une nouvelle tâche
+        saveTodoButton.addEventListener('click', () => {
+            const title = document.getElementById('todo-title').value;
+            const description = document.getElementById('todo-description').value;
+            const priority = document.getElementById('todo-priority').value;
+            const dueDate = document.getElementById('todo-due-date').value;
+    
+            if (title) {
+                addTodoItem(title, description, priority, dueDate);
+                todoModal.hide();
+                document.getElementById('todo-form').reset();
+            } else {
+                alert('Veuillez entrer un titre pour la tâche.');
+            }
+        });
+    
+        // Filtrer les tâches lors de la recherche
+        searchTodoInput.addEventListener('input', function () {
+            const searchTerm = this.value.toLowerCase();
+            Array.from(todoList.children).forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        });
+    
+        // Fonction pour ajouter une tâche
+        function addTodoItem(title, description, priority, dueDate) {
+            const todo = {
+                id: Date.now(), // Utiliser un timestamp comme ID unique
+                title,
+                description,
+                priority,
+                dueDate
+            };
+    
+            // Ajouter la tâche à la liste
+            const li = createTodoElement(todo);
+            todoList.appendChild(li);
+    
+            // Sauvegarder la tâche dans le localStorage
+            saveTodoToLocalStorage(todo);
+        }
+    
+        // Fonction pour créer un élément de tâche
+        function createTodoElement(todo) {
+            const li = document.createElement('li');
+            li.className = 'list-group-item';
+            li.dataset.id = todo.id; // Ajouter un attribut data-id pour identifier la tâche
+            li.innerHTML = `
+                <div>
+                    <strong>${todo.title}</strong>
+                    <div class="todo-description">${todo.description}</div>
+                    <div class="todo-due-date">${todo.dueDate}</div>
+                </div>
+                <div>
+                    <span class="todo-priority priority-${todo.priority}">${todo.priority}</span>
+                                <button class="btn btn-warning btn-sm" onclick="editTodoItem(this)">Modifier</button>
+
+                    <button class="btn btn-danger btn-sm" onclick="deleteTodoItem(this)">Supprimer</button>
+                </div>
+            `;
+            return li;
+        }
+    
+        // Fonction pour sauvegarder une tâche dans le localStorage
+        function saveTodoToLocalStorage(todo) {
+            let todos = JSON.parse(localStorage.getItem('todos')) || [];
+            todos.push(todo);
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+    
+        // Fonction pour charger les tâches depuis le localStorage
+        function loadTodos() {
+            let todos = JSON.parse(localStorage.getItem('todos')) || [];
+            todos.forEach(todo => {
+                const li = createTodoElement(todo);
+                todoList.appendChild(li);
+            });
+        }
+    // Fonction pour ouvrir le modal de modification
+window.editTodoItem = function (button) {
+    const li = button.closest('li');
+    const todoId = li.dataset.id;
+
+    // Récupérer la tâche depuis le localStorage
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+    const todo = todos.find(todo => todo.id == todoId);
+
+    if (todo) {
+        // Pré-remplir le modal avec la priorité actuelle
+        document.getElementById('edit-todo-priority').value = todo.priority;
+
+        // Ouvrir le modal
+        const editModal = new bootstrap.Modal(document.getElementById('editTodoModal'));
+        editModal.show();
+
+        // Enregistrer la modification
+        document.getElementById('save-edit-todo').onclick = function () {
+            const newPriority = document.getElementById('edit-todo-priority').value;
+
+            // Mettre à jour la tâche dans le localStorage
+            todo.priority = newPriority;
+            localStorage.setItem('todos', JSON.stringify(todos));
+
+            // Mettre à jour la tâche dans le DOM
+            const prioritySpan = li.querySelector('.todo-priority');
+            prioritySpan.textContent = newPriority;
+            prioritySpan.className = `todo-priority priority-${newPriority}`;
+
+            // Fermer le modal
+            editModal.hide();
+        };
+    }
+};
+        // Fonction pour supprimer une tâche
+        window.deleteTodoItem = function (button) {
+            const li = button.closest('li');
+            const todoId = li.dataset.id;
+    
+            // Supprimer la tâche du localStorage
+            let todos = JSON.parse(localStorage.getItem('todos')) || [];
+            todos = todos.filter(todo => todo.id != todoId);
+            localStorage.setItem('todos', JSON.stringify(todos));
+    
+            // Supprimer la tâche de la liste
+            todoList.removeChild(li);
+        };
+    });
+  </script>
+
+
+</body>
+</html>

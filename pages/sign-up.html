@@ -18,63 +18,173 @@
   <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- Custom CSS -->
   <link href="../assets/css/logine.css">
+  <style>/* Ajoutez ce CSS dans un fichier séparé (par exemple, admin.css) ou dans une balise <style> dans le <head> */
+
+    /* Style général pour la page */
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Open Sans', sans-serif;
+    }
+    
+    /* En-tête de la page */
+    .page-header {
+        background-color: #172b4d; /* Couleur sombre pour l'en-tête */
+        color: #fff;
+        padding: 2rem 0;
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .page-header h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
+    
+    .page-header p {
+        font-size: 1.2rem;
+        opacity: 0.8;
+    }
+    
+    /* Carte de formulaire */
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-body {
+        padding: 2rem;
+    }
+    
+    /* Champs de formulaire */
+    .form-control {
+        border-radius: 0.25rem;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e9ecef;
+        margin-bottom: 1rem;
+    }
+    
+    .form-control:focus {
+        border-color: #5e72e4;
+        box-shadow: 0 0 0 0.2rem rgba(94, 114, 228, 0.25);
+    }
+    
+    /* Bouton de soumission */
+    .btn-primary {
+        background-color: #5e72e4;
+        border: none;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 0.25rem;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: #4a5bbf;
+    }
+    
+    /* Checkbox personnalisé */
+    .form-check-input {
+        margin-top: 0.3rem;
+    }
+    
+    .form-check-label {
+        margin-left: 0.5rem;
+    }
+    
+    /* Footer */
+    .footer {
+        background-color: #172b4d;
+        color: #fff;
+        padding: 2rem 0;
+        margin-top: 2rem;
+    }
+    
+    .footer a {
+        color: #fff;
+        opacity: 0.8;
+        text-decoration: none;
+    }
+    
+    .footer a:hover {
+        opacity: 1;
+        text-decoration: underline;
+    }</style>
 </head>
 
 <body class="">
-  <main class="main-content mt-0">
-    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" 
-    style="background-image: url('../assets/img/signup-cover.jpg'); background-position: top;">      <span class="mask bg-gradient-dark opacity-6"></span>
-      <div class="container">
-        <div class="row justify-content-center">
+    <main class="main-content mt-0">
+      <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" 
+           style="background-image: url('../assets/img/signup-cover.jpg'); background-position: top;">
+        <span class="mask bg-gradient-dark opacity-6"></span>
+        <div class="container">
+          <div class="row justify-content-center">
             <div class="col-lg-5 text-center mx-auto">
-                <h1 class="text-white mb-2 mt-5">Bienvenue à la Médiathèque !</h1>
-                <p class="text-lead text-white">Explorez notre vaste collection de livres, films et ressources numériques. Inscrivez-vous ou connectez-vous pour commencer votre voyage culturel.</p>
-              </div>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
-        <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
-          <div class="card z-index-0">
-            <div class="card-body">
-              <form role="form" id="signupForm" method="post">
-                <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Username" aria-label="Username" id="username" required>
-                </div>
-                <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Lastname" aria-label="Lastname" id="lastname" required>
-                </div>
-                <div class="mb-3">
-                  <input type="email" class="form-control" placeholder="Email" aria-label="Email" id="email" required>
-                </div>
-                <div class="mb-3">
-                  <input type="password" class="form-control" placeholder="Password" aria-label="Password" id="password" required>
-                </div>
-                <div class="mb-3">
-                  <select class="form-control" id="role" required>
-                    <option value="" disabled selected>Select your role</option>
-                    <option value="LECTEUR">Lecteur</option>
-                    <option value="EMPLOYEE">Employe</option>
-                  </select>
-                </div>
-                <div class="form-check form-check-info text-start">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked required>
-                  <label class="form-check-label" for="flexCheckDefault">
-                    I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-                  </label>
-                </div>
-                <div class="text-center">
-                  <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
-                </div>
-                <p class="text-sm mt-3 mb-0">Already have an account? <a href="javascript:;" class="text-dark font-weight-bolder">Sign in</a></p>
-              </form>
+              <h1 class="text-white mb-2 mt-5">Création de Compte</h1>
+              <p class="text-lead text-white">En tant qu'administrateur, vous pouvez créer des comptes pour les utilisateurs de la médiathèque.</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
+      <div class="container">
+        <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
+          <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+            <div class="card z-index-0">
+              <div class="card-body">
+                <form role="form" id="signupForm" method="post">
+                  <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Nom d'utilisateur" aria-label="Username" id="username" required>
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Nom de famille" aria-label="Lastname" id="lastname" required>
+                  </div>
+                  <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="Email" aria-label="Email" id="email" required>
+                  </div>
+                  <div class="mb-3">
+                    <input type="password" class="form-control" placeholder="Mot de passe" aria-label="Password" id="password" required>
+                  </div>
+                  <div class="mb-3">
+                    <select class="form-control" id="role" required>
+                      <option value="" disabled selected>Sélectionnez un rôle</option>
+                      <option value="LECTEUR">Lecteur</option>
+                      <option value="EMPLOYEE">Employé</option>
+                      <option value="ADMIN">Admin</option>
+                    </select>
+                  </div>
+                  <div class="form-check form-check-info text-start">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked required>
+                    <label class="form-check-label" for="flexCheckDefault">
+                      J'accepte les <a href="javascript:;" class="text-dark font-weight-bolder">termes et conditions</a>
+                    </label>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Créer un compte</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="footer py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mb-4 mx-auto text-center">
+            <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">Médiathèque</a>
+            <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">À propos</a>
+            <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">Équipe</a>
+            <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">Contact</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8 mx-auto text-center mt-1">
+            <p class="mb-0 text-secondary">© <script>document.write(new Date().getFullYear())</script> Médiathèque. Tous droits réservés.</p>
+          </div>
+        </div>
+      </div>
   <footer class="footer py-5">
     <div class="container">
       <div class="row">
@@ -107,6 +217,7 @@
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/js//connexion.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->

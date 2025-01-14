@@ -100,36 +100,7 @@
   <script src="/assets/js/core/popper.min.js"></script>
   <script src="/assets/js/core/bootstrap.min.js"></script>
   <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      fetch('/api/user/profile') // Endpoint pour récupérer les données du profil
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP Error: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Remplir les données de l'utilisateur
-          document.getElementById('username').textContent = data.username;
-          document.getElementById('username-detail').textContent = data.username;
-          document.getElementById('email').textContent = data.email;
-          document.getElementById('role').textContent = data.role;
-
-          // Associer les relations
-          document.getElementById('lecteur-info').textContent = data.lecteur ? `Lecteur ID: ${data.lecteur.id}` : 'None';
-          document.getElementById('employe-info').textContent = data.employe ? `Employe ID: ${data.employe.id}` : 'None';
-          document.getElementById('admin-info').textContent = data.admin ? `Admin ID: ${data.admin.id}` : 'None';
-
-          // À propos de l'utilisateur
-          document.getElementById('about-me').textContent = data.aboutMe || 'No description available.';
-        })
-        .catch(error => {
-          console.error('Error fetching user data:', error);
-          alert('Unable to load profile data.');
-        });
-    });
-  </script>
+   
 </body>
 
 </html>

@@ -7,15 +7,12 @@
             "command": "npm run start",
             "isBackground": true,
             "problemMatcher": {
-                "pattern": {
-                    "regexp": "."
-                },
                 "background": {
                     "activeOnStart": true,
-                    "beginsPattern": ".",
-                    "endsPattern": "."
+                    "beginsPattern": ".*Starting.*",
+                    "endsPattern": ".*Listening.*"
                 }
             }
         }
     ]
-} 
+}
