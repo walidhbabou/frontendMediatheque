@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,23 +18,31 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
   <script>
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
       const accessToken = localStorage.getItem('accessToken');
       if (!accessToken) {
         window.location.href = '/pages/sign-in.html';
       }
     });
   </script>
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-dark position-absolute w-100"></div>
   <!-- Menu latéral -->
-  <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
+  <aside
+    class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
+    id="sidenav-main">
     <div class="sidenav-header">
-      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+        aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="dashboard-employe.html">
-        <img src="/assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo">
+        <img src="/assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100"
+          alt="main_logo">
         <span class="ms-1 font-weight-bold">SmartMedia</span>
       </a>
     </div>
@@ -42,7 +51,8 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="../Employe/dashboard-employe.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Dashboard</span>
@@ -50,7 +60,8 @@
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="#" data-bs-toggle="collapse" data-bs-target="#gestionDocuments">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-collection text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Gestion Documents</span>
@@ -70,157 +81,128 @@
                   <span class="nav-link-text">État des Documents</span>
                 </a>
               </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionUsagers">
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Gestion Usagers</span>
+            <i class="ni ni-bold-down ms-1"></i>
+          </a>
+          <div class="collapse" id="gestionUsagers">
+            <ul class="nav nav-sm flex-column ms-4">
               <li class="nav-item">
-                <a class="nav-link active" href="../Employe/nouveau-document.html">
-                  <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
-                  <span class="nav-link-text">Ajouter Document</span>
+                <a class="nav-link" href="../Employe/liste-lecteurs.html">
+                  <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
+                  <span class="nav-link-text">Liste des Lecteurs</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../Employe/modifier-document.html">
-                  <i class="ni ni-settings text-dark text-sm opacity-10 me-2"></i>
-                  <span class="nav-link-text">Modifier Document</span>
+                <a class="nav-link" href="../Employe/recherche-lecteurs.html">
+                  <i class="ni ni-zoom-split-in text-dark text-sm opacity-10 me-2"></i>
+                  <span class="nav-link-text">Recherche Lecteurs</span>
                 </a>
               </li>
             </ul>
           </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionUsagers">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Gestion Usagers</span>
-              <i class="ni ni-bold-down ms-1"></i>
-            </a>
-            <div class="collapse" id="gestionUsagers">
-              <ul class="nav nav-sm flex-column ms-4">
-                <li class="nav-item">
-                  <a class="nav-link" href="../Employe/liste-lecteurs.html">
-                    <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
-                    <span class="nav-link-text">Liste des Lecteurs</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../Employe/recherche-lecteurs.html">
-                    <i class="ni ni-zoom-split-in text-dark text-sm opacity-10 me-2"></i>
-                    <span class="nav-link-text">Recherche Lecteurs</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../Employe/nouveau-lecteur.html">
-                    <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
-                    <span class="nav-link-text">Nouveau Lecteur</span>
-                  </a>
-                </li>
-              </ul>
+          <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionPrets">
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-books text-dark text-sm opacity-10"></i>
             </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionPrets">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-books text-dark text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Gestion des Prêts</span>
-              <i class="ni ni-bold-down ms-1"></i>
-            </a>
-            <div class="collapse" id="gestionPrets">
-              <ul class="nav nav-sm flex-column ms-4">
-                
-                <li class="nav-item">
-                  <a class="nav-link" href="../Employe/retour-document.html">
-                    <i class="ni ni-curved-next text-dark text-sm opacity-10 me-2"></i>
-                    <span class="nav-link-text">Retour Document</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../Employe/emprunts-en-cours.html">
-                    <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
-                    <span class="nav-link-text">Emprunts en Cours</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../Employe/gestion-retards.html">
-                    <i class="ni ni-time-alarm text-dark text-sm opacity-10 me-2"></i>
-                    <span class="nav-link-text">Gestion des Retards</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../Employe/historique-prets.html">
-                    <i class="ni ni-calendar-grid-58 text-dark text-sm opacity-10 me-2"></i>
-                    <span class="nav-link-text">Historique</span>
-                  </a>
-                </li>
-              </ul>
+            <span class="nav-link-text ms-1">Gestion des Prêts</span>
+            <i class="ni ni-bold-down ms-1"></i>
+          </a>
+          <div class="collapse" id="gestionPrets">
+            <ul class="nav nav-sm flex-column ms-4">
+
+              <li class="nav-item">
+                <a class="nav-link" href="../Employe/retour-document.html">
+                  <i class="ni ni-curved-next text-dark text-sm opacity-10 me-2"></i>
+                  <span class="nav-link-text">Retour Document</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../Employe/emprunts-en-cours.html">
+                  <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
+                  <span class="nav-link-text">Emprunts en Cours</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../Employe/gestion-retards.html">
+                  <i class="ni ni-time-alarm text-dark text-sm opacity-10 me-2"></i>
+                  <span class="nav-link-text">Gestion des Retards</span>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionBenevoles">
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-badge text-dark text-sm opacity-10"></i>
             </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionBenevoles">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-badge text-dark text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Gestion Bénévoles</span>
-              <i class="ni ni-bold-down ms-1"></i>
-            </a>
-            <div class="collapse" id="gestionBenevoles">
-              <ul class="nav nav-sm flex-column ms-4">
-                <li class="nav-item">
-                  <a class="nav-link" href="../Employe/liste-benevoles.html">
-                    <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
-                    <span class="nav-link-text">Liste des Bénévoles</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../Employe/periodes-benevoles.html">
-                    <i class="ni ni-calendar-grid-58 text-dark text-sm opacity-10 me-2"></i>
-                    <span class="nav-link-text">Périodes Autorisées</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../Employe/droits-benevoles.html">
-                    <i class="ni ni-key-25 text-dark text-sm opacity-10 me-2"></i>
-                    <span class="nav-link-text">Gestion des Droits</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../Employe/nouveau-benevole.html">
-                    <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
-                    <span class="nav-link-text">Nouveau Bénévole</span>
-                  </a>
-                </li>
-              </ul>
+            <span class="nav-link-text ms-1">Gestion Bénévoles</span>
+            <i class="ni ni-bold-down ms-1"></i>
+          </a>
+          <div class="collapse" id="gestionBenevoles">
+            <ul class="nav nav-sm flex-column ms-4">
+              <li class="nav-item">
+                <a class="nav-link" href="../Employe/liste-benevoles.html">
+                  <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
+                  <span class="nav-link-text">Liste des Bénévoles</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../Employe/periodes-benevoles.html">
+                  <i class="ni ni-calendar-grid-58 text-dark text-sm opacity-10 me-2"></i>
+                  <span class="nav-link-text">Périodes Autorisées</span>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="../Employe/nouveau-benevole.html">
+                  <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
+                  <span class="nav-link-text">Nouveau Bénévole</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Employe/profile.html">
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
             </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../Employe/achat.html">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-cart text-dark text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Achat</span>
-            </a>
-          </li>
-          <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../Employe/profile.html">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Profil</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </aside>
+            <span class="nav-link-text ms-1">Profil</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
 
   <main class="main-content position-relative border-radius-lg">
     <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="false">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+      data-scroll="false">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Gestion Documents</a></li>
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Gestion
+                Documents</a></li>
             <li class="breadcrumb-item text-sm text-white active" aria-current="page">Ajouter Document</li>
           </ol>
           <h6 class="font-weight-bolder text-white mb-0">Ajouter un Nouveau Document</h6>
@@ -244,79 +226,70 @@
               <h6>Informations du Document</h6>
             </div>
             <div class="card-body">
-              <form id="newDocumentForm">
+              <form id="documentForm">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="title" class="form-control-label">Titre</label>
-                      <input class="form-control" type="text" id="title" required>
+                      <label for="title">Titre</label>
+                      <input type="text" class="form-control" id="title" name="title" required>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="author" class="form-control-label">Auteur</label>
-                      <input class="form-control" type="text" id="author" required>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="category" class="form-control-label">Catégorie</label>
-                      <select class="form-control" id="category" required>
-                        <option value="">Sélectionner une catégorie</option>
-                        <option value="livre">Livre</option>
-                        <option value="revue">Revue</option>
-                        <option value="cd">CD</option>
-                        <option value="dvd">DVD</option>
+                      <label for="type">Type de Document</label>
+                      <select class="form-control" name="type" id="type" required>
+                        <option value="JOURNAL">Journal</option>
+                        <option value="LIVRE">Livre</option>
+                        <option value="CD-ROM">CD-ROM</option>
+                        <option value="MICROFILM">Microfilm</option>
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="isbn" class="form-control-label">ISBN/Code</label>
-                      <input class="form-control" type="text" id="isbn">
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="cote" class="form-control-label">Cote</label>
-                      <input class="form-control" type="text" id="cote" required>
-                    </div>
-                  </div>
                 </div>
-                <div class="row">
+
+                <!-- Champs spécifiques pour les livres (affichés conditionnellement) -->
+                <div class="row mt-3" id="livreFields" style="display: none;">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label for="description" class="form-control-label">Description</label>
-                      <textarea class="form-control" id="description" rows="3"></textarea>
+                      <label for="auteur">Auteur</label>
+                      <input type="text" class="form-control" name="auteur" id="auteur">
                     </div>
                   </div>
                 </div>
-                <div class="row">
+
+                <div class="row mt-3">
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label for="publisher" class="form-control-label">Éditeur</label>
-                      <input class="form-control" type="text" id="publisher">
+                      <label for="prix">Prix</label>
+                      <input type="number" name="prix" step="0.01" class="form-control" id="prix" required>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label for="publicationYear" class="form-control-label">Année de publication</label>
-                      <input class="form-control" type="number" id="publicationYear">
+                      <label for="quantite">Quantité</label>
+                      <input type="number" class="form-control" name="quantite" id="quantite" required min="1"
+                        value="1">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label for="copies" class="form-control-label">Nombre d'exemplaires</label>
-                      <input class="form-control" type="number" id="copies" value="1" min="1" required>
+                      <label for="consultable">Consultable</label>
+                      <select class="form-control" name="consultable" id="consultable" required>
+                        <option value="true">Oui</option>
+                        <option value="false">Non</option>
+                      </select>
                     </div>
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 text-end">
-                    <button type="button" class="btn btn-secondary me-2" onclick="window.location.href='dashboard-employe.html'">Annuler</button>
-                    <button type="submit" class="btn btn-primary">Ajouter le Document</button>
+                    <button type="button" class="btn btn-secondary me-2">
+                      Annuler
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                      <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                      Ajouter le document
+                    </button>
                   </div>
                 </div>
               </form>
@@ -340,39 +313,126 @@
   <script src="/assets/js/dashboard-employe.js"></script>
 
   <script>
-    document.getElementById('newDocumentForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
+    // Afficher/masquer les champs spécifiques selon le type
+    document.getElementById('type').addEventListener('change', function () {
+      const livreFields = document.getElementById('livreFields');
+      livreFields.style.display = this.value === 'LIVRE' ? 'block' : 'none';
+    });
+
+    async function saveDocument(event) {
+      event.preventDefault();
+
+      const submitBtn = document.getElementById('submitBtn');
+      const spinner = submitBtn.querySelector('.spinner-border');
+
+      // Activer le spinner et désactiver le bouton
+      submitBtn.disabled = true;
+      spinner.classList.remove('d-none');
+
+      const form = document.getElementById('documentForm');
+      const formData = new FormData(form);
+
+      // Create the base document object
+      const documentData = {
+        titre: formData.get('title'),
+        type: formData.get('type'),
+        prix: parseFloat(formData.get('prix')),
+        consultable: formData.get('consultable') === 'true', // Convert to boolean
+        quantite: parseInt(formData.get('quantite')),
+        quantite_disponible: parseInt(formData.get('quantite'))
+      };
+
+      // Create the payload
+      const payload = {
+        document: documentData
+      };
+
+      // If the document type is "LIVRE", add the "livre" object
+      if (documentData.type === "LIVRE") {
+        payload.livre = {
+          auteur: formData.get('auteur') // Ensure the input field for "auteur" has a name attribute
+        };
+      }
+
       try {
-        const response = await fetch('http://votre-api/documents', {
+        const response = await fetch('http://localhost:8080/Mediatheque/Document/save', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+            // 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
           },
-          body: JSON.stringify({
-            title: document.getElementById('title').value,
-            author: document.getElementById('author').value,
-            category: document.getElementById('category').value,
-            isbn: document.getElementById('isbn').value,
-            cote: document.getElementById('cote').value,
-            description: document.getElementById('description').value,
-            publisher: document.getElementById('publisher').value,
-            publicationYear: document.getElementById('publicationYear').value,
-            copies: document.getElementById('copies').value
-          })
+          body: JSON.stringify(payload)
         });
 
-        if (!response.ok) throw new Error('Erreur lors de l\'ajout du document');
+        if (!response.ok) {
+          throw new Error('Erreur lors de la sauvegarde');
+        }
 
-        alert('Document ajouté avec succès');
-        window.location.href = 'etat-documents.html';
+        const result = await response.json();
+
+        // Afficher l'alerte de succès
+        await Swal.fire({
+          icon: 'success',
+          title: 'Succès!',
+          text: 'Le document a été ajouté avec succès',
+          showConfirmButton: true
+        });
+
+        // Réinitialiser le formulaire
+        form.reset();
 
       } catch (error) {
         console.error('Erreur:', error);
-        alert('Erreur lors de l\'ajout du document');
+        Swal.fire({
+          icon: 'success',
+          title: 'Succès!',
+          text: 'Le document a été ajouté avec succès',
+        });
+      } finally {
+        // Désactiver le spinner et réactiver le bouton
+        submitBtn.disabled = false;
+        spinner.classList.add('d-none');
       }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('documentForm');
+
+      // Attacher l'événement submit au formulaire
+      form.addEventListener("submit", function (e) {
+        e.preventDefault(); // Empêche la soumission par défaut
+        console.log("Formulaire soumis, appel de saveDocument..."); // Vérifiez que ce message apparaît dans la console
+        saveDocument(e); // Appeler la fonction saveDocument
+      });
+
+      // Gérer le bouton "Annuler"
+      const cancelButton = document.querySelector('button[type="button"]');
+      cancelButton.onclick = function () {
+        window.location.reload(); // Recharger la page pour annuler
+      };
+
+      // Gérer le changement de type de document
+      document.getElementById('type').onchange = function () {
+        const livreFields = document.getElementById('livreFields');
+        livreFields.style.display = this.value === 'LIVRE' ? 'block' : 'none';
+      };
+    });
+
+  </script>
+  <form id="testForm">
+    <input type="text" id="testInput" required>
+    <button type="submit">Soumettre</button>
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('testForm');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        console.log("Formulaire soumis sans redirection");
+      });
     });
   </script>
 </body>
-</html> 
+
+</html>

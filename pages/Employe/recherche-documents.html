@@ -16,6 +16,7 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- CSS Files -->
   <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
   <script>
     window.addEventListener('load', function() {
       const accessToken = localStorage.getItem('accessToken');
@@ -24,6 +25,8 @@
       }
     });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+  <script src="/assets/js/recherche-documents.js"></script>
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -64,21 +67,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../pages/etat-documents.html">
+                        <a class="nav-link" href="../Employe/etat-documents.html">
                             <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
                             <span class="nav-link-text">État des Documents</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/nouveau-document.html">
-                            <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Ajouter Document</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/modifier-document.html">
-                            <i class="ni ni-settings text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Modifier Document</span>
                         </a>
                     </li>
                 </ul>
@@ -104,12 +95,6 @@
                         <a class="nav-link" href="../pages/recherche-lecteurs.html">
                             <i class="ni ni-zoom-split-in text-dark text-sm opacity-10 me-2"></i>
                             <span class="nav-link-text">Recherche Lecteurs</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../pages/nouveau-lecteur.html">
-                            <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Nouveau Lecteur</span>
                         </a>
                     </li>
                 </ul>
@@ -176,12 +161,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../pages/droits-benevoles.html">
-                            <i class="ni ni-key-25 text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Gestion des Droits</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="../pages/nouveau-benevole.html">
                             <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
                             <span class="nav-link-text">Nouveau Bénévole</span>
@@ -240,52 +219,39 @@
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-              <h6>Recherche Avancée</h6>
+              <div class="d-flex justify-content-between align-items-center">
+                <h6>Recherche de Documents</h6>
+                <a class="nav-link" href="../Employe/nouveau-document.html">    
+                    <button class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus me-2"></i>Nouveau Document
+                    </button>
+                </a>
+              </div>
             </div>
             <div class="card-body">
-              <form id="searchForm">
+              <form id="searchForm" class="mb-4">
                 <div class="row">
-                  <div class="col-md-3">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label>Titre</label>
-                      <input type="text" class="form-control" id="title" placeholder="Titre du document">
+                      <input type="text" 
+                             class="form-control" 
+                             id="title" 
+                             placeholder="Rechercher par titre..."
+                             autocomplete="off">
                     </div>
                   </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>Auteur</label>
-                      <input type="text" class="form-control" id="author" placeholder="Nom de l'auteur">
-                    </div>
-                  </div>
-                  <div class="col-md-3">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label>Catégorie</label>
                       <select class="form-control" id="category">
                         <option value="">Toutes les catégories</option>
-                        <option value="livre">Livre</option>
-                        <option value="revue">Revue</option>
-                        <option value="cd">CD</option>
-                        <option value="dvd">DVD</option>
+                        <option value="LIVRE">Livre</option>
+                        <option value="CD">CD</option>
+                        <option value="DVD">DVD</option>
+                        <option value="REVUE">Revue</option>
                       </select>
                     </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>État</label>
-                      <select class="form-control" id="status">
-                        <option value="">Tous les états</option>
-                        <option value="disponible">Disponible</option>
-                        <option value="emprunte">Emprunté</option>
-                        <option value="reserve">Réservé</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-12 text-end">
-                    <button type="submit" class="btn btn-primary">
-                      <i class="fas fa-search me-2"></i>Rechercher
-                    </button>
                   </div>
                 </div>
               </form>
@@ -294,11 +260,12 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th>Document</th>
-                      <th>Auteur</th>
-                      <th>État</th>
-                      <th>Cote</th>
-                      <th>Actions</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Document</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">ID</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">État</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantité</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
+                      <th class="text-secondary opacity-7">Actions</th>
                     </tr>
                   </thead>
                   <tbody id="searchResults">
@@ -326,62 +293,218 @@
   <script src="/assets/js/argon-dashboard.min.js?v=2.1.0"></script>
   <script src="/assets/js/dashboard-employe.js"></script>
 
+  <!-- Ajouter cette div pour le formulaire de modification -->
+  <div id="edit-form-container" style="display: none;">
+    <div class="card mb-4">
+        <div class="card-header pb-0">
+            <h6>Modifier le document</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+            <form id="edit-form" class="px-4">
+                <input type="hidden" id="edit-id" name="document_id">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="edit-title">Titre</label>
+                            <input type="text" class="form-control" id="edit-title" name="titre" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="edit-type">Type</label>
+                            <select class="form-control" id="edit-type" name="type" required>
+                                <option value="">Sélectionner un type</option>
+                                <option value="LIVRE">Livre</option>
+                                <option value="CD-ROM">CD-ROM</option>
+                                <option value="JOURNAL">Journal</option>
+                                <option value="MICROFILM">Microfilm</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="edit-price">Prix</label>
+                            <input type="number" class="form-control" id="edit-price" name="prix" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="edit-consultable">Consultable</label>
+                            <select class="form-control" id="edit-consultable" name="consultable">
+                                <option value="Oui">Oui</option>
+                                <option value="Non">Non</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="edit-quantity">Quantité</label>
+                            <input type="number" class="form-control" id="edit-quantity" name="quantite" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="edit-available-quantity">Quantité Disponible</label>
+                            <input type="number" class="form-control" id="edit-available-quantity" name="quantite_disponible" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12 text-end">
+                        <button type="button" class="btn btn-secondary me-2" id="cancel-edit">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
+  <!-- Ajouter ce JavaScript -->
   <script>
-    document.getElementById('searchForm').addEventListener('submit', async function(e) {
+  // Fonction pour afficher le formulaire de modification
+  function showEditForm(document) {
+      // Remplir le formulaire avec les données du document
+      document.getElementById('edit-id').value = document.document_id;
+      document.getElementById('edit-title').value = document.titre;
+      document.getElementById('edit-type').value = document.type;
+      document.getElementById('edit-price').value = document.prix;
+      document.getElementById('edit-consultable').value = document.consultable;
+      document.getElementById('edit-quantity').value = document.quantite;
+      document.getElementById('edit-available-quantity').value = document.quantite_disponible;
+
+      // Afficher le formulaire de modification
+      document.getElementById('edit-form-container').style.display = 'block';
+      
+      // Faire défiler jusqu'au formulaire
+      document.getElementById('edit-form-container').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Gérer la soumission du formulaire de modification
+  document.getElementById('edit-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       
+      const documentData = {
+          document_id: parseInt(document.getElementById('edit-id').value),
+          titre: document.getElementById('edit-title').value,
+          type: document.getElementById('edit-type').value,
+          prix: parseFloat(document.getElementById('edit-price').value),
+          consultable: document.getElementById('edit-consultable').value,
+          quantite: parseInt(document.getElementById('edit-quantity').value),
+          quantite_disponible: parseInt(document.getElementById('edit-available-quantity').value)
+      };
+
       try {
-        const response = await fetch('http://votre-api/documents/search', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-          },
-          body: JSON.stringify({
-            title: document.getElementById('title').value,
-            author: document.getElementById('author').value,
-            category: document.getElementById('category').value,
-            status: document.getElementById('status').value
-          })
-        });
+          const response = await fetch('http://localhost:8080/Mediatheque/Document/update', {
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(documentData)
+          });
 
-        if (!response.ok) throw new Error('Erreur lors de la recherche');
+          if (!response.ok) throw new Error('Erreur lors de la modification');
 
-        const results = await response.json();
-        const tbody = document.getElementById('searchResults');
-        
-        tbody.innerHTML = results.map(doc => `
-          <tr>
-            <td>${doc.title}</td>
-            <td>${doc.author}</td>
-            <td>
-              <span class="badge badge-sm bg-gradient-${getStatusColor(doc.status)}">
-                ${doc.status}
-              </span>
-            </td>
-            <td>${doc.cote}</td>
-            <td>
-              <a href="modifier-document.html?id=${doc.id}" class="btn btn-link text-dark px-3 mb-0">
-                <i class="fas fa-pencil-alt text-dark me-2"></i>Modifier
-              </a>
-            </td>
-          </tr>
-        `).join('');
+          await Swal.fire({
+              icon: 'success',
+              title: 'Succès',
+              text: 'Le document a été modifié avec succès'
+          });
+
+          // Recharger la liste et cacher le formulaire
+          searchDocuments(); // Recharger la liste des documents
+          hideEditForm();
 
       } catch (error) {
-        console.error('Erreur:', error);
-        alert('Erreur lors de la recherche');
+          console.error('Erreur:', error);
+          Swal.fire({
+              icon: 'error',
+              title: 'Erreur',
+              text: 'Impossible de modifier le document'
+          });
       }
-    });
+  });
 
-    function getStatusColor(status) {
-      switch(status) {
-        case 'disponible': return 'success';
-        case 'emprunte': return 'warning';
-        case 'reserve': return 'info';
-        default: return 'secondary';
+  // Gérer le bouton Annuler
+  document.getElementById('cancel-edit').addEventListener('click', hideEditForm);
+
+  // Fonction pour cacher le formulaire de modification
+  function hideEditForm() {
+      document.getElementById('edit-form-container').style.display = 'none';
+  }
+
+  // Modifier la fonction qui affiche les résultats pour inclure le bouton modifier
+  function displaySearchResults(documents) {
+      const tbody = document.getElementById('searchResults');
+      tbody.innerHTML = documents.map(doc => `
+          <tr>
+              <td>${doc.titre}</td>
+              <td>${doc.type}</td>
+              <td>${doc.prix}</td>
+              <td>${doc.consultable}</td>
+              <td>${doc.quantite}</td>
+              <td>${doc.quantite_disponible}</td>
+              <td>
+                  <button class="btn btn-sm btn-primary" onclick='showEditForm(${JSON.stringify(doc)})'>
+                      <i class="fas fa-edit"></i> Modifier
+                  </button>
+                  <!-- Autres boutons existants -->
+              </td>
+          </tr>
+      `).join('');
+  }
+
+  async function ajouterDocument() {
+      try {
+          const documentData = {
+              titre: "Nouveau document",  // Vous pouvez ajouter un formulaire modal pour ces données
+              type: "LIVRE",
+              prix: 0,
+              consultable: "Oui",
+              quantite: 1,
+              quantite_disponible: 1
+          };
+
+          const response = await fetch('http://localhost:8080/Mediatheque/Document/save', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+              },
+              body: JSON.stringify(documentData)
+          });
+
+          if (!response.ok) {
+              throw new Error('Erreur lors de la sauvegarde');
+          }
+
+          const result = await response.json();
+
+          // Afficher l'alerte de succès
+          Swal.fire({
+              icon: 'success',
+              title: 'Succès!',
+              text: 'Le document a été ajouté avec succès',
+              showConfirmButton: false,
+              timer: 1500
+          });
+
+          // Rafraîchir la liste des documents
+          searchDocuments();
+
+      } catch (error) {
+          console.error('Erreur:', error);
+          Swal.fire({
+              icon: 'error',
+              title: 'Erreur',
+              text: 'Une erreur est survenue lors de l\'ajout du document'
+          });
       }
-    }
+  }
   </script>
 </body>
 </html> 

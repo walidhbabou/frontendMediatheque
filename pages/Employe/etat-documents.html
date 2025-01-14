@@ -56,7 +56,7 @@
                 <span class="nav-link-text ms-1">Gestion Documents</span>
                 <i class="ni ni-bold-down ms-1"></i>
             </a>
-            <div class="collapse" id="gestionDocuments">
+            <div class="collapse show" id="gestionDocuments">
                 <ul class="nav nav-sm flex-column ms-4">
                     <li class="nav-item">
                         <a class="nav-link" href="./recherche-documents.html">
@@ -65,21 +65,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./etat-documents.html">
+                        <a class="nav-link active" href="./etat-documents.html">
                             <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10 me-2"></i>
                             <span class="nav-link-text">État des Documents</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./nouveau-document.html">
-                            <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Ajouter Document</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./modifier-document.html">
-                            <i class="ni ni-settings text-dark text-sm opacity-10 me-2"></i>
-                            <span class="nav-link-text">Modifier Document</span>
                         </a>
                     </li>
                 </ul>
@@ -105,12 +93,6 @@
                 <a class="nav-link" href="../Employe/recherche-lecteurs.html">
                   <i class="ni ni-zoom-split-in text-dark text-sm opacity-10 me-2"></i>
                   <span class="nav-link-text">Recherche Lecteurs</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../Employe/nouveau-lecteur.html">
-                  <i class="ni ni-fat-add text-dark text-sm opacity-10 me-2"></i>
-                  <span class="nav-link-text">Nouveau Lecteur</span>
                 </a>
               </li>
             </ul>
@@ -174,12 +156,6 @@
                 <a class="nav-link" href="../Employe/periodes-benevoles.html">
                   <i class="ni ni-calendar-grid-58 text-dark text-sm opacity-10 me-2"></i>
                   <span class="nav-link-text">Périodes Autorisées</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../Employe/droits-benevoles.html">
-                  <i class="ni ni-key-25 text-dark text-sm opacity-10 me-2"></i>
-                  <span class="nav-link-text">Gestion des Droits</span>
                 </a>
               </li>
               <li class="nav-item">
@@ -324,12 +300,11 @@
               <div class="d-flex justify-content-between">
                 <h6>État des Documents</h6>
                 <div>
-                  <select class="form-control" id="filterStatus" onchange="filterDocuments()">
-                    <option value="all">Tous les états</option>
+                  <select class="form-control" id="filterStatus">
+                    <option value="all">Tous les documents</option>
                     <option value="disponible">Disponibles</option>
-                    <option value="emprunte">Empruntés</option>
-                    <option value="reserve">Réservés</option>
-                    <option value="retard">En retard</option>
+                    <option value="indisponible">Indisponibles</option>
+                    <option value="stockFaible">Stock Faible</option>
                   </select>
                 </div>
               </div>
