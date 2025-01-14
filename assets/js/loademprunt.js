@@ -207,7 +207,10 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 const createAbonnementSelect = document.getElementById('create-abonnement');
                 const editAbonnementSelect   = document.getElementById('edit-abonnement');
-    
+                const totalDocumentsElement = document.getElementById('total-lecteur');
+                if (totalDocumentsElement) {
+                  totalDocumentsElement.textContent = data.length;
+                }
                 // Vider les selects
                 createAbonnementSelect.innerHTML = '<option value="">Sélectionnez un lecteur</option>';
                 editAbonnementSelect.innerHTML   = '<option value="">Sélectionnez un lecteur</option>';
@@ -223,7 +226,6 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => {
                 console.error('Erreur lors du chargement des lecteurs:', error);
-                alert('Erreur lors du chargement des lecteurs');
             });
     }
 
@@ -234,6 +236,11 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(EMPRUNT_API + '/all')
             .then(response => response.json())
             .then(data => {
+                
+        const totalDocumentsElement = document.getElementById('total-emprunt');
+        if (totalDocumentsElement) {
+          totalDocumentsElement.textContent = data.length;
+        }
                 empruntTable.innerHTML = '';
                 data.forEach(emprunt => {
                     const row = document.createElement('tr');
@@ -273,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const editAbonnementSelect   = document.getElementById('edit-abonnement');
                 createAbonnementSelect.innerHTML = '<option value="">Sélectionnez un abonnement</option>';
                 editAbonnementSelect.innerHTML   = '<option value="">Sélectionnez un abonnement</option>';
-
+                
                 data.forEach(abonnement => {
                     const option = document.createElement('option');
                     option.value = abonnement.abonnementId;
